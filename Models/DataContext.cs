@@ -32,6 +32,7 @@ public partial class DataContext : IdentityDbContext<AppUserModel>
     public virtual DbSet<Lesson> Lessons { get; set; }
 
     public virtual DbSet<Document> Documents { get; set; }
+    public virtual DbSet<Progresses> Progresses { get; set; }
 
     public virtual DbSet<Chapter> Chapters { get; set; }
 
