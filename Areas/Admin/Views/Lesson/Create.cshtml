@@ -1,0 +1,75 @@
+@model Lesson
+@{
+	ViewData["Title"] = "Create new Lesson";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main bg-body">
+    <div class="pagetitle">
+        <h2>Thêm bài học mới</h2>
+    </div>
+    <div class="container shadow-lg p-5 bg-light">
+        <form asp-action="Create" method="post">
+           <input type="hidden" asp-for="ChapterId" />
+           
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row g-3">
+                <div class="col-12 mb-3">
+                    <label class="form-label">Tên bài học</label>
+                    <input asp-for="Name" required class="form-control" placeholder="Tên bài học..." type="text">
+                    <span asp-validation-for="Name" class="alert-danger"></span>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Kiểu nội dung</label>
+                    <select asp-for="ContentType" required class="form-control">
+                        <option selected value="Video">Video</option>
+                        <option value="Image">PDF</option>
+                        <option value="Text">Text</option>
+                    </select>
+                </div>
+                <div class="col-md-8 mb-3">
+                    <label class="form-label">Chọn tệp (có thể bỏ qua)</label>
+                    <input asp-for="FilePath" id="file_input" class="form-control" />
+                    <button onclick="openDialog()" type="button" id="chooseImageBtn" class="btn btn-primary btn-sm mt-2">Chọn tệp</button>
+                </div>
+                <div class="col-12 mb-3">
+                    <label class="form-label">Link Video</label>
+                    <input asp-for="VideoUrl" class="form-control" placeholder="//https:,..." type="url">
+                    <span asp-validation-for="VideoUrl" class="alert-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Thời gian</label>
+                    <input asp-for="Duration" class="form-control" type="text">
+                    <span asp-validation-for="Duration" class="alert-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Trạng thái</label>
+                    <select asp-for="Status" class="form-control">
+                        <option selected value="true">Active</option>
+                        <option value="false">Inactive</option>
+                    </select>
+                </div>
+                <div class="col-12 mb-3">
+                    <label class="form-label">Chi tiết bài học</label>
+                    <textarea asp-for="Details" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create</button>
+            <a asp-area="Admin" asp-controller="Lesson" asp-action="Index" class="btn btn-secondary">Back to list Lesson</a>
+            <a asp-area="Admin" asp-controller="Course" asp-action="Index" class="btn btn-danger">Back to list Course</a>
+            @* <a href="javascript:history.back()" class="btn btn-secondary">Back</a> *@
+        </form>
+    </div>
+</main>
+
+@{
+    var summernote = new OnlineCourse.Areas.Admin.Models.SummerNote("#Details");
+    <partial name="_SummerNote" model="summernote" />
+}
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

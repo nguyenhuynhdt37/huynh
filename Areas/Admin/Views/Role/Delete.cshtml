@@ -1,0 +1,24 @@
+@using Microsoft.AspNetCore.Identity
+@model IdentityRole
+
+@{
+	ViewData["Title"] = "Delete Role";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Bạn có chắc muốn xoá quyền này?</h2>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>Role name</label>
+            <input asp-for="Name" class="form-control mb-3" disabled />
+        </div>
+    </div>
+
+    <form asp-area="Admin" asp-controller="Role" asp-action="Delete" method="post">
+        <input asp-for="Id" type="hidden" />
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="javascript:history.back()" class="btn btn-primary">Back to list</a>
+    </form>
+</main>

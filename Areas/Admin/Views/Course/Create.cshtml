@@ -1,0 +1,77 @@
+@model Course
+@{
+	ViewData["Title"] = "Create new Course";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main bg-body">
+    <div class="pagetitle">
+        <h2>Create a new Course</h2>
+    </div>
+    <div class="container shadow p-5 bg-light">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row g-3">
+                <div class="col-12 mb-3">
+                    <label class="form-label">Tên khoá học</label>
+                    <input asp-for="Name" required class="form-control" placeholder="Tên khoá học..." type="text">
+                    <span asp-validation-for="Name" class="alert-danger"></span>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Mã khoá học</label>
+                    <input asp-for="Code" required class="form-control" placeholder="Mã khoá học..." type="text">
+                    <span asp-validation-for="Code" class="alert-danger"></span>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Slug</label>
+                    <input asp-for="MetaTitle" required class="form-control" placeholder="Tiêu đề khoá học..." type="text">
+                    <span asp-validation-for="MetaTitle" class="alert-danger"></span>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Trạng thái</label>
+                    <select asp-for="Status" class="form-control">
+                        <option value="true">Active</option>
+                        <option value="false">Inactive</option>
+                    </select>
+                </div>
+                <div class="col-12 mb-3">
+                    <label class="form-label">Mô tả</label>
+                    <textarea asp-for="Description" required class="form-control" placeholder="Mô tả..." rows="3"></textarea>
+                    <span asp-validation-for="Description" class="alert-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Thể loại</label>
+                    <select asp-for="CategoryId" asp-items="ViewBag.CategoryId" class="form-control" id="CategoryId">
+                        <option value="">-- Chọn thể loại --</option>
+                    </select>
+                    <span asp-validation-for="CategoryId" class="alert-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Hình ảnh</label>
+                    <input asp-for="Image" type="text" id="file_input" class="form-control" placeholder="Chọn ảnh" />
+                    <button onclick="openDialog()" type="button" id="chooseImageBtn" class="btn btn-primary btn-sm mt-2">Chọn ảnh</button>
+                    <img id="previewImage" src="" alt="Preview Image" style="display:none;" />
+                </div>
+                <div class="col-12 mb-3">
+                    <label class="form-label">Nội dung khoá học</label>
+                    <textarea asp-for="Details" required class="form-control" placeholder="Nội dung khoá học..." rows="3"></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create</button>
+            <a asp-area="Admin" asp-controller="Course" asp-action="Index" class="btn btn-secondary">Back</a>
+            @* <a href="javascript:history.back()" class="btn btn-secondary">Back</a> *@
+        </form>
+    </div>
+</main>
+
+@{
+    var summernote = new OnlineCourse.Areas.Admin.Models.SummerNote("#Details");
+    <partial name="_SummerNote" model="summernote" />
+}
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

@@ -1,0 +1,65 @@
+@model AppUserModel
+@{
+	ViewData["Title"] = "Create new User";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Create new user</h2>
+    </div>
+    <div class="container bg-light shadow p-5">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Ảnh đại diện</label>
+                    <input asp-for="Avatar" id="file_input" class="form-control" placeholder="Chọn ảnh" />
+                    <button onclick="openDialog()" type="button" id="chooseImageBtn" class="btn btn-primary btn-sm mt-2">Chọn ảnh</button>
+                    <img id="previewImage" src="" alt="Preview Image" style="display:none;" />
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label>Username</label>
+                    <input asp-for="UserName" required class="form-control" placeholder="Your username..." type="text">
+                    <span asp-validation-for="UserName" class="alert-danger"></span>
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label>Email</label>
+                    <input asp-for="Email" required class="form-control" placeholder="Your email address..." type="email">
+                    <span asp-validation-for="Email" class="alert-danger"></span>
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label>Phone number</label>
+                    <input asp-for="PhoneNumber" required class="form-control" placeholder="Your phone..." type="text">
+                    <span asp-validation-for="PhoneNumber" class="alert-danger"></span>
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label>Password</label>
+                    <input asp-for="PasswordHash" required class="form-control" placeholder="Your password..." type="password">
+                    <span asp-validation-for="PasswordHash" class="alert-danger"></span>
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label>Select Role</label>
+                    <select asp-for="RoleId" class="form-control" asp-items="ViewBag.Roles">
+                        <option value="">-- Select Role --</option>
+                    </select>
+                    <span asp-validation-for="RoleId" class="alert-danger"></span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create</button>
+
+            <a asp-area="Admin" asp-controller="User" asp-action="Index" class="btn btn-secondary">Back</a>
+        </form>
+    </div>
+</main>
+
+@{
+    var summernote = new OnlineCourse.Areas.Admin.Models.SummerNote("#Details");
+    <partial name="_SummerNote" model="summernote" />
+}
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

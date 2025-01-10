@@ -1,0 +1,41 @@
+@model Chapter
+@{
+    ViewData["Title"] = "Delete Chapter";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Bạn có chắc muốn xoá chương này không?</h2>
+    </div>
+    <div class="container shadow p-5">
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="CourseId" />
+            <input type="hidden" asp-for="ChapterId" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-row">
+                <div class="form-group col-md-6 mb-3">
+                    <label>Tên chương</label>
+                    <input disabled asp-for="Name" class="form-control" />
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label>Vị trí</label>
+                    <input disabled asp-for="Order" class="form-control" />
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label>Trạng thái</label>
+                    <select disabled asp-for="Status" class="form-control">
+                        <option value="true">Hiển thị</option>
+                        <option value="false">Ẩn</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Xoá</button>
+
+            <a asp-area="Admin" asp-controller="Lesson" asp-action="Index" class="btn btn-secondary">List Lesson</a>
+            <a asp-area="Admin" asp-controller="Chapter" asp-action="Index" class="btn btn-danger">List Chapter</a>
+            <a asp-area="Admin" asp-controller="Course" asp-action="Index" class="btn btn-warning">List Course</a>
+        </form>
+    </div>
+</main>

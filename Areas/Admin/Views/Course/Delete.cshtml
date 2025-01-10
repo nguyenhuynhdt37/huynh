@@ -1,0 +1,50 @@
+@model Course
+@{
+	ViewData["Title"] = "Delete the Course";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Do you want to delete this course?</h2>
+    </div>
+    <div class="container shadow p-5">
+        <form asp-action="DeleteConfirmed" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="row g-3">
+                <div class="col-12 mb-3">
+                    <label class="form-label">Tên khoá học</label>
+                    <input disabled asp-for="Name" class="form-control">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Mã khoá học (code)</label>
+                    <input disabled asp-for="Code" class="form-control">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Slug</label>
+                    <input disabled asp-for="MetaTitle" class="form-control">
+                </div>
+                <div class="col-12 mb-3">
+                    <label class="form-label">Mô tả</label>
+                    <textarea disabled asp-for="Description" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Delete</button>
+            <a asp-area="Admin" asp-controller="Course" asp-action="Index" class="btn btn-secondary">Back</a>
+            @* <a href="javascript:history.back()" class="btn btn-secondary">Back</a> *@
+        </form>
+    </div>
+</main>
+
+@{
+    var summernote = new OnlineCourse.Areas.Admin.Models.SummerNote("#Details");
+    <partial name="_SummerNote" model="summernote" />
+}
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

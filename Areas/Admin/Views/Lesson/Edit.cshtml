@@ -1,0 +1,77 @@
+@model Lesson
+@{
+	ViewData["Title"] = "Edit Lesson";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main bg-body">
+    <div class="pagetitle">
+        <h2>Cập nhật thông tin bài học</h2>
+    </div>
+    <div class="container shadow-lg p-5 bg-light">
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="@Model.LessonId" />
+            <input type="hidden" asp-for="ChapterId" />
+            
+            <div class="row g-3">
+                <div class="col-12 mb-3">
+                    <label class="form-label">Tên bài học</label>
+                    <input asp-for="Name" class="form-control" type="text">
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Kiểu nội dung</label>
+                    <select asp-for="ContentType" class="form-control">
+                        <option value="Video">Video</option>
+                        <option value="Image">PDF</option>
+                        <option value="Text">Text</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Thời gian</label>
+                    <input asp-for="Duration" class="form-control" type="text">
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Trạng thái</label>
+                    <select asp-for="Status" class="form-control">
+                        <option value="true">Active</option>
+                        <option value="false">Inactive</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Thứ tự</label>
+                    <input asp-for="Order" class="form-control" type="number">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Chọn tệp</label>
+                    <input asp-for="FilePath" id="file_input" class="form-control" />
+                    <button onclick="openDialog()" type="button" id="chooseImageBtn" class="btn btn-primary btn-sm mt-2">Chọn tệp</button>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Link Video</label>
+                    <input asp-for="VideoUrl" class="form-control" type="url">
+                </div>
+                <div class="col-12 mb-3">
+                    <label class="form-label">Chi tiết bài học</label>
+                    <textarea asp-for="Details" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Cập nhật</button>
+            <a asp-area="Admin" asp-controller="Lesson" asp-action="Index" asp-route-courseId="@Model.ChapterId" class="btn btn-warning">Về danh sách bài học</a>
+            <a asp-area="Admin" asp-controller="Course" asp-action="Index" class="btn btn-danger">Về trang khoá học</a>
+            @* <a href="javascript:history.back()" class="btn btn-secondary">Back</a> *@
+        </form>
+    </div>
+</main>
+
+@{
+    var summernote = new OnlineCourse.Areas.Admin.Models.SummerNote("#Details");
+    <partial name="_SummerNote" model="summernote" />
+}
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

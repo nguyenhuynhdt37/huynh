@@ -1,0 +1,65 @@
+@model OnlineCourse.Models.Document
+@{
+    ViewData["Title"] = "Chỉnh sửa tài liệu";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main ">
+    <div class="pagetitle">
+        <h2>Chỉnh sửa tài liệu</h2>
+    </div>
+    <div class="container shadow p-5 bg-light">
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-row">
+                <div class="form-group col-12 mb-3">
+                    <label asp-for="Name">Tên tài liệu</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group col-12 mb-3">
+                    <label asp-for="Description">Mô tả ngắn</label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="Type">Loại tài liệu</label>
+                    <input asp-for="Type" class="form-control" />
+                    <span asp-validation-for="Type" class="text-danger"></span>
+                </div>
+                <div class="col-md-8 mb-3">
+                    <label class="form-label">File</label>
+                    <input asp-for="FilePath" id="file_input" class="form-control" />
+                    <button onclick="openDialog()" type="button" class="btn btn-primary btn-sm mt-2">Chọn tệp</button>
+                </div>
+                <div class="form-group col-12 mb-3">
+                    <label asp-for="Link">Liên kết</label>
+                    <input asp-for="Link" class="form-control" />
+                    <span asp-validation-for="Link" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label>
+                        @Html.CheckBox("Status", false)
+                        <span>Hiển thị</span>
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Cập nhật</button>
+
+            <a asp-area="Admin" asp-controller="Document" asp-action="Index" class="btn btn-secondary">Trở về</a>
+        </form>
+    </div>
+</main>
+
+@{
+    var summernote = new OnlineCourse.Areas.Admin.Models.SummerNote("#Details");
+    <partial name="_SummerNote" model="summernote" />
+}
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

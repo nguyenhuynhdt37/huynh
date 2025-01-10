@@ -1,0 +1,65 @@
+@model IEnumerable<Lesson>
+@{
+    ViewData["Title"] = "Danh sách bài học";
+}
+
+<main id="main" class="main"> 
+    <div class="pagetitle">
+        <h2>Danh sách Bài học</h2>
+        <p>
+            @* <a asp-controller="Lesson" asp-action="Create" type="button" class="btn btn-success">
+                <i class="bi bi-plus-square me-2"></i>Thêm bài học mới</a> *@
+            <a asp-controller="Course" asp-action="Index" type="button" class="btn btn-warning">
+                <i class="bi bi-arrow-left-circle me-2"></i>Về Khoá học</a>
+            <section class="section dashboard">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card recent-sales overflow-auto">
+                            <div class="card-body mt-4">
+                                <table class="table table-borderless datatable">
+                                    <thead>
+                                        <tr>
+                                            <th class="col">LessonID</th>
+                                            <th class="col-3">Tên bài học</th>
+                                            <th class="col-1">Loại nội dung</th>
+                                            <th class="col-2">Khoá học</th>
+                                            <th class="col-2">Chương</th>
+                                            <th class="col-1">Vị trí</th>
+                                            <th class="col-1">Trạng thái</th>
+                                            <th class="col-1">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td class="text-left" scope="row">@item.LessonId</td>
+                                                <td class="text-left" scope="row">@item.Name</td>
+                                                <td class="text-left" scope="row">@item.ContentType</td>
+                                                <td class="text-left" scope="row">@item.Course?.Name</td>
+                                                <td class="text-left" scope="row">@item.Chapter?.Name</td>
+                                                <td class="text-left" scope="row">@item.Order</td>
+                                                <td class="text-left" scope="row">
+                                                    @Html.Raw(@item.Status ? "<span class='badge bg-success'>Active</span>" : "<span class='badge bg-danger'>Inactive</span>")
+                                                </td>
+                                        
+                                                <td class="text-left" scope="row">
+                                                    <a asp-area="Admin" asp-controller="Lesson" asp-action="Edit" asp-route-id="@item.LessonId" class="btn btn-primary btn-sm" title="Edit this lesson">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </a>
+                                                    <a asp-area="Admin" asp-controller="Lesson" asp-action="Delete" asp-route-id="@item.LessonId" class="btn btn-danger btn-sm" title="Delete this lesson">
+                                                        <i class="bi bi-trash"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </p>
+    </div>
+</main>

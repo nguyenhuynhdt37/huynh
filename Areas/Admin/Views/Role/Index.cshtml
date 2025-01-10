@@ -1,0 +1,55 @@
+@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IdentityRole>
+
+@{
+    ViewData["Title"] = "List Roles";
+}
+
+<main id="main" class="main"> 
+    <div class="pagetitle">
+        <h2>Danh sách các quyền</h2>
+
+        <p>
+            <a asp-area="Admin" asp-controller="Role" asp-action="Create" type="button" class="btn btn-success">
+            <i class="bi bi-file-earmark-text me-1"></i>Add new role</a>
+            <section class="section dashboard">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card recent-sales overflow-auto">
+                            <div class="card-body mt-4">
+                                <table class="table table-borderless datatable">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-5">ID</th>
+                                            <th class="col-3">Role name</th>
+                                            <th class="col-3">Normalized name</th>
+                                            <th class="col-1">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var user in Model)
+                                        {
+                                            <tr>
+                                                <td class="text-left" scope="row">@user.Id</td>
+                                                <td class="text-left" scope="row">@user.Name</td>
+                                                <td class="text-left" scope="row">@user.NormalizedName</td>
+                                                <td class="text-left" scope="row">
+                                                    <a asp-area="Admin" asp-controller="Role" asp-action="Edit" asp-route-id="@user.Id" class="btn btn-primary btn-sm" title="Edit this role">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </a>
+                                                    <a asp-area="Admin" asp-controller="Role" asp-action="Delete" asp-route-id="@user.Id" class="btn btn-danger btn-sm" title="Delete this role">
+                                                        <i class="bi bi-trash"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </p>
+    </div>
+</main>

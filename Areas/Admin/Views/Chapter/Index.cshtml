@@ -1,0 +1,70 @@
+@model IEnumerable<Chapter>
+@{
+    ViewData["Title"] = "Danh sách chương";
+}
+
+<main id="main" class="main"> 
+    <div class="pagetitle">
+        <h2>Danh sách chương</h2>
+
+        <p>
+            <a asp-area="Admin" asp-controller="Course" asp-action="Index" type="button" class="btn btn-success">
+            <i class="bi bi-file-earmark-text me-1"></i>Trở về Khoá học</a>
+            <section class="section dashboard">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card recent-sales overflow-auto">
+                            <div class="card-body mt-4">
+                                <table class="table table-borderless datatable">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-1">#</th>
+                                            <th class="col-3">Tên chương</th>
+                                            <th class="col-1">ID khoá học</th>
+                                            <th class="col-1">Vị trí</th>
+                                            <th class="col-2">Số bài học</th>
+                                            <th class="col-1">Trạng thái</th>
+                                            <th class="col-2">Thêm bài học</th>
+                                            <th class="col-1">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td class="text-left" scope="row">@item.ChapterId</td>
+                                                <td class="text-left" scope="row">@item.Name</td>
+                                                <td class="text-left" scope="row">@item.CourseId</td>
+                                                <td class="text-left" scope="row">@item.Order</td>
+                                                <td class="text-left" scope="row">
+                                                    @item.Lessons.Count()
+                                                    | <a asp-controller="Lesson" asp-route-chapterId="@item.ChapterId">Xem bài học</a>
+                                                </td>
+                                                <td class="text-left" scope="row">
+                                                    @Html.Raw(@item.Status ? "<span class='badge bg-success'>Active</span>" : "<span class='badge bg-danger'>Inactive</span>")
+                                                </td>
+                                                <td class="text-left" scope="row">
+                                                    <a asp-area="Admin" asp-controller="Lesson" asp-action="Create" asp-route-chapterId="@item.ChapterId" class="btn btn-primary btn-sm" title="Add new lesson">
+                                                        <i class="bi bi-plus-circle"></i> Thêm bài học
+                                                    </a>
+                                                </td>
+                                                <td class="text-left" scope="row">
+                                                    <a asp-area="Admin" asp-controller="Chapter" asp-action="Edit" asp-route-id="@item.ChapterId" class="btn btn-primary btn-sm" title="Edit this chapter">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </a>
+                                                    <a asp-area="Admin" asp-controller="Chapter" asp-action="Delete" asp-route-id="@item.ChapterId" class="btn btn-danger btn-sm" title="Delete this chapter">
+                                                        <i class="bi bi-trash"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </p>
+    </div>
+</main>

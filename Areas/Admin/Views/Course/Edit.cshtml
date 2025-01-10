@@ -1,0 +1,73 @@
+@model Course
+@{
+	ViewData["Title"] = "Edit the Course";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Edit a Course</h2>
+    </div>
+    <div class="container shadow p-5 bg-light">
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="row g-3">
+                <div class="col-12 mb-3">
+                    <label class="form-label">Tên khoá học</label>
+                    <input asp-for="Name" class="form-control">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Mã khoá học</label>
+                    <input asp-for="Code" class="form-control">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">(slug)</label>
+                    <input asp-for="MetaTitle" class="form-control">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Trạng thái</label>
+                    <select asp-for="Status" class="form-control">
+                        <option value="true">Active</option>
+                        <option value="false">Inactive</option>
+                    </select>
+                </div>
+                <div class="col-12 mb-3">
+                    <label class="form-label">Mô tả</label>
+                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Thể loại</label>
+                    <select asp-for="CategoryId" asp-items="ViewBag.CategoryId" class="form-control" id="CategoryId">
+                    
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Hình ảnh</label>
+                    <input asp-for="Image" id="file_input" class="form-control" />
+                    <button onclick="openDialog()" type="button" id="chooseImageBtn" class="btn btn-primary btn-sm mt-2">Thay hình ảnh khác</button>
+                    <img id="previewImage" src="" alt="Preview Image" style="display:none;" />
+                </div>
+                <div class="col-12 mb-3">
+                    <label class="form-label">Nội dung khoá học</label>
+                    <textarea asp-for="Details" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Update</button>
+            <a asp-area="Admin" asp-controller="Course" asp-action="Index" class="btn btn-secondary">Back</a>
+            @* <a href="javascript:history.back()" class="btn btn-secondary">Back</a> *@
+        </form>
+    </div>
+</main>
+
+@{
+    var summernote = new OnlineCourse.Areas.Admin.Models.SummerNote("#Details");
+    <partial name="_SummerNote" model="summernote" />
+}
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

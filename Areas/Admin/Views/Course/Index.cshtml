@@ -1,0 +1,91 @@
+@model IEnumerable<Course>
+@{
+    ViewData["Title"] = "Danh sách Khoá học";
+    var categories = ViewBag.CategoryList as List<CourseCategory>;
+}
+
+<main id="main" class="main"> 
+    <div class="pagetitle">
+        <h2>Danh sách Khoá học</h2>
+
+        <p>
+            <a asp-area="Admin" asp-controller="Course" asp-action="Create" type="button" class="btn btn-success">
+            <i class="bi bi-file-earmark-text me-1"></i>Thêm Khoá học mới</a>
+            <section class="section dashboard">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card recent-sales overflow-auto">
+                            <div class="card-body mt-4">
+                                <table class="table table-borderless datatable">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-1">#</th>
+                                            <th class="col-2">Hình ảnh</th>
+                                            <th class="col-2">Tên khoá học</th>
+                                            <th class="col-2">Thể loại</th>
+                                            <th class="col-1">Trạng thái</th>
+                                            <th class="col-1">Số chương</th>
+                                            <th class="col-1">Số bài học</th>
+                                            <th class="col-1">Thêm chương</th>
+                                            <th class="col-1">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td class="text-left" scope="row">@item.Id</td>
+                                                <td class="text-left" scope="row">
+                                                    <img src="@item.Image" alt="@item.Name" class="img-thumbnail" style="width: 200px; height: 120px;">
+                                                </td>
+                                                <td class="text-left" scope="row">@item.Name</td>
+                                                <td class="text-left" scope="row">
+                                                    @if (categories != null)
+                                                    {
+                                                        var category = categories.FirstOrDefault(c => c.Id == item.CategoryId);
+                                                        if (category != null)
+                                                        {
+                                                            <span>@category.Name</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>Unknown Category</span>
+                                                        }
+                                                    }
+                                                </td>
+                                                <td class="text-left" scope="row">
+                                                    @Html.Raw(@item.Status ? "<span class='badge bg-success'>Active</span>" : "<span class='badge bg-danger'>Inactive</span>")
+                                                </td>
+                                                <td class="text-left" scope="row">@item.Chapters.Count() <hr>
+                                                    <a asp-controller="Chapter" asp-route-courseId="@item.Id">Xem chương</a>
+                                                </td>
+                                                <td class="text-left" scope="row">@item.Lessons.Count() <hr>
+                                                    <a asp-controller="Lesson" asp-route-courseId="@item.Id">Xem bài học</a>
+                                                </td>
+
+                                                <td class="text-left" scope="row">
+                                                    <a asp-area="Admin" asp-controller="Chapter" asp-action="Create" asp-route-courseId="@item.Id" class="btn btn-primary btn-sm" title="Add new chap">
+                                                        <i class="bi bi-plus-circle"></i> Add
+                                                    </a>
+                                                </td>
+                                                
+                                                <td class="text-left" scope="row">
+                                                    <a asp-area="Admin" asp-controller="Course" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm" title="Edit this Course">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </a>
+                                                    <a asp-area="Admin" asp-controller="Course" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm" title="Delete this Course">
+                                                        <i class="bi bi-trash"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </p>
+    </div>
+</main>

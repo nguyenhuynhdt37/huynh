@@ -1,0 +1,319 @@
+@model IEnumerable<Blog>
+@{
+	ViewBag.Title = "Tin tức";
+	var categories = ViewBag.BlogCategoryList as IEnumerable<BlogCategory>;
+}
+
+<main>
+<!-- =======================
+Page Banner START -->
+<section class="py-5">
+	<div class="container">
+		<div class="row position-relative">
+			<!-- SVG decoration -->
+			<figure class="position-absolute top-0 start-0 d-none d-sm-block">	
+				<svg width="22px" height="22px" viewBox="0 0 22 22">
+					<polygon class="fill-purple" points="22,8.3 13.7,8.3 13.7,0 8.3,0 8.3,8.3 0,8.3 0,13.7 8.3,13.7 8.3,22 13.7,22 13.7,13.7 22,13.7 "></polygon>
+				</svg>
+			</figure>
+		
+			<!-- Title and breadcrumb -->
+			<div class="col-lg-10 mx-auto text-center position-relative">
+				
+				<!-- SVG decoration -->
+				<figure class="position-absolute top-50 end-0 translate-middle-y">
+					<svg width="27px" height="27px">
+						<path class="fill-orange" d="M13.122,5.946 L17.679,-0.001 L17.404,7.528 L24.661,5.946 L19.683,11.533 L26.244,15.056 L18.891,16.089 L21.686,23.068 L15.400,19.062 L13.122,26.232 L10.843,19.062 L4.557,23.068 L7.352,16.089 L-0.000,15.056 L6.561,11.533 L1.582,5.946 L8.839,7.528 L8.565,-0.001 L13.122,5.946 Z"></path>
+					</svg>
+				</figure>
+
+				
+				<!-- Title -->
+				<h1>Tin tức</h1>
+				<!-- Breadcrumb -->
+				<div class="d-flex justify-content-center position-relative">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb mb-0">
+							<li class="breadcrumb-item"><a href="/">Home</a></li>
+							<li class="breadcrumb-item active" aria-current="page">Library</li>
+						</ol>
+					</nav>
+				</div>
+				<!-- Category navigation -->
+				@* <div class="category-nav d-flex justify-content-center mt-2">
+					@foreach (var item in categories)
+					{
+						<a class="nav-link mx-4 text-danger" asp-action="Index" asp-controller="Blog" asp-route-Slug="@item.Slug">@item.Name</a>
+					}
+				</div> *@
+			</div>
+		</div>
+	</div>
+</section>
+<!-- =======================
+Page Banner END -->
+
+<!-- =======================
+Page content START -->
+<section class="position-relative pt-0 pt-lg-3">
+	<div class="container">
+		<div class="row g-4">
+
+			@foreach (var blog in Model)
+			{
+				<div class="col-sm-6 col-lg-4 col-xl-3">
+					<div class="card bg-transparent shadow" style="height: 400px;">
+						<div class="overflow-hidden rounded-3">
+							<img src="@blog.Image" class="card-img" alt="course image" style="height: 200px;">
+							<div class="bg-overlay bg-dark opacity-4"></div>
+							<div class="card-img-overlay d-flex align-items-start p-3">
+								<a class="badge bg-danger text-white">@blog.BlogCategory?.Name</a>
+							</div>
+						</div>
+						<div class="card-body">
+							<h5 class="card-title"><a asp-controller="Blog" asp-action="Details" asp-route-Id="@blog.BlogId">@blog.Title</a></h5>
+							<br>
+							<div class="d-flex justify-content-between">
+								<h6 class="mb-0 position-absolute bottom-0 start-0 mb-3 ms-3">@blog.Author</h6>
+								@{
+									var createdDate = blog.CreatedDate ?? DateTime.Now;
+									var timeSpan = DateTime.Now - createdDate;
+
+									if (timeSpan.Days > 0)
+									{
+										<span class="small position-absolute bottom-0 end-0 mb-3 me-3">@timeSpan.Days D ago</span>
+									}
+									else if (timeSpan.Hours > 0)
+									{
+										<span class="small position-absolute bottom-0 end-0 mb-3 me-3">@timeSpan.Hours H ago</span>
+									}
+									else
+									{
+										<span class="small position-absolute bottom-0 end-0 mb-3 me-3">@timeSpan.Minutes M ago</span>
+									}
+								}
+							</div>
+						</div>
+					</div>
+				</div>
+			}
+
+			<!-- Card item START -->
+			<div class="col-sm-6 col-lg-4 col-xl-3">
+				<div class="card bg-transparent">
+					<div class="overflow-hidden rounded-3">
+						<img src="assets/images/event/08.jpg" class="card-img" alt="course image">
+						<!-- Overlay -->
+						<div class="bg-overlay bg-dark opacity-4"></div>
+						<div class="card-img-overlay d-flex align-items-start p-3">
+							<!-- badge -->
+							<a href="#" class="badge bg-success text-white">Student life</a>
+						</div>
+					</div>
+
+					<!-- Card body -->
+					<div class="card-body">
+						<!-- Title -->
+						<h5 class="card-title"><a href="#">How to make a college list</a></h5>
+						<p class="text-truncate-2">Prospective students should start broadly and then narrow their list down to colleges that best fit their needs, experts say. Yet remarkably appearance get him his projection.</p>
+						<!-- Info -->
+						<div class="d-flex justify-content-between">
+							<h6 class="mb-0"><a href="#">Louis Crawford</a></h6>
+							<span class="small">12H Ago</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Card item END -->
+
+			<!-- Card item START -->
+			<div class="col-sm-6 col-lg-4 col-xl-3">
+				<div class="card bg-transparent">
+					<div class="overflow-hidden rounded-3">
+						<img src="assets/images/event/09.jpg" class="card-img" alt="course image">
+						<!-- Overlay -->
+						<div class="bg-overlay bg-dark opacity-4"></div>
+						<div class="card-img-overlay d-flex align-items-start p-3">
+							<!-- badge -->
+							<a href="#" class="badge bg-purple text-white">Travel</a>
+						</div>
+					</div>
+
+					<!-- Card body -->
+					<div class="card-body">
+						<!-- Title -->
+						<h5 class="card-title"><a href="#">Never underestimate the influence of Eduport</a></h5>
+						<p class="text-truncate-2">Prospective students should start broadly and then narrow their list</p>
+						<!-- Info -->
+						<div class="d-flex justify-content-between">
+							<h6 class="mb-0"><a href="#">Joan Wallace</a></h6>
+							<span class="small">5D Ago</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Card item END -->
+
+			<!-- Card item START -->
+			<div class="col-sm-6 col-lg-4 col-xl-3">
+				<div class="card bg-transparent">
+					<div class="overflow-hidden rounded-3">
+						<img src="assets/images/event/03.jpg" class="card-img-top" alt="course image">
+						<!-- Overlay -->
+						<div class="bg-overlay bg-dark opacity-4"></div>
+						<div class="card-img-overlay d-flex align-items-start p-3">
+							<!-- badge -->
+							<a href="#" class="badge bg-danger text-white">Research</a>
+						</div>
+					</div>
+
+					<!-- Card body -->
+					<div class="card-body">
+						<!-- Title -->
+						<h5 class="card-title"><a href="#">Covid-19 and the college experienced</a></h5>
+						<p class="text-truncate-2">Rooms oh fully taken by worse do. Points afraid but may end law. Points afraid but may end law.</p>
+						<!-- Info -->
+						<div class="d-flex justify-content-between">
+							<h6 class="mb-0"><a href="#">Amanda Reed</a></h6>
+							<span class="small">July 21, 2021</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Card item END -->
+
+			<!-- Card item START -->
+			<div class="col-sm-6 col-lg-4 col-xl-3">
+				<div class="card bg-transparent">
+					<div class="overflow-hidden rounded-3">
+						<img src="assets/images/event/07.jpg" class="card-img-top" alt="course image">
+						<!-- Overlay -->
+						<div class="bg-overlay bg-dark opacity-4"></div>
+						<div class="card-img-overlay d-flex align-items-start p-3">
+							<!-- badge -->
+							<a href="#" class="badge bg-success text-white">Research</a>
+						</div>
+					</div>
+
+					<!-- Card body -->
+					<div class="card-body">
+						<!-- Title -->
+						<h5 class="card-title"><a href="#">Best Pinterest Boards for learning about business</a></h5>
+						<p class="text-truncate-2">Fully taken by worse do. Points afraid but may end law. Points afraid but may end law.</p>
+						<!-- Info -->
+						<div class="d-flex justify-content-between">
+							<h6 class="mb-0"><a href="#">Samuel Bishop</a></h6>
+							<span class="small">40D ago</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Card item END -->
+
+			<!-- Card item START -->
+			<div class="col-sm-6 col-lg-4 col-xl-3">
+				<div class="card bg-transparent">
+					<div class="overflow-hidden rounded-3">
+						<img src="assets/images/event/04.jpg" class="card-img-top" alt="course image">
+						<!-- Overlay -->
+						<div class="bg-overlay bg-dark opacity-4"></div>
+						<div class="card-img-overlay d-flex align-items-start p-3">
+							<!-- badge -->
+							<a href="#" class="badge bg-primary text-white">Sports</a>
+						</div>
+					</div>
+
+					<!-- Card body -->
+					<div class="card-body">
+						<!-- Title -->
+						<h5 class="card-title"><a href="#">The Olympics are over, now what?</a></h5>
+						<p class="text-truncate-2">Rooms oh fully taken by worse do. Points afraid but may end law. Points afraid but may end law.</p>
+						<!-- Info -->
+						<div class="d-flex justify-content-between">
+							<h6 class="mb-0"><a href="#">Carolyn Ortiz</a></h6>
+							<span class="small">Aug 31, 2021</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Card item END -->
+			
+			<!-- Card item START -->
+			<div class="col-sm-6 col-lg-4 col-xl-3">
+				<div class="card bg-transparent">
+					<div class="overflow-hidden rounded-3">
+						<img src="assets/images/event/05.jpg" class="card-imgp" alt="course image">
+						<!-- Overlay -->
+						<div class="bg-overlay bg-dark opacity-4"></div>
+						<div class="card-img-overlay d-flex align-items-start p-3">
+							<!-- badge -->
+							<a href="#" class="badge bg-info text-white">Student story</a>
+						</div>
+					</div>
+
+					<!-- Card body -->
+					<div class="card-body">
+						<!-- Title -->
+						<h5 class="card-title"><a href="#">Campus Support for First-Year Students</a></h5>
+						<p class="text-truncate-2">Prospective students should start broadly and then narrow their list</p>
+
+						<!-- Info -->
+						<div class="d-flex justify-content-between">
+							<h6 class="mb-0"><a href="#">Lori Stevens</a></h6>
+							<span class="small">3M Ago</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Card item END -->
+
+			<!-- Card item START -->
+			<div class="col-sm-6 col-lg-4 col-xl-3">
+				<div class="card bg-transparent">
+					<div class="overflow-hidden rounded-3">
+						<img src="assets/images/event/06.jpg" class="card-imgp" alt="course image">
+						<!-- Overlay -->
+						<div class="bg-overlay bg-dark opacity-4"></div>
+						<div class="card-img-overlay d-flex align-items-start p-3">
+							<!-- badge -->
+							<a href="#" class="badge bg-orange text-white">Marketing</a>
+						</div>
+					</div>
+
+					<!-- Card body -->
+					<div class="card-body">
+						<!-- Title -->
+						<h5 class="card-title"><a href="#">Bad habits that people in the industry need to quit</a></h5>
+						<p class="text-truncate-2">Prospective students should start broadly and then narrow their list</p>
+
+						<!-- Info -->
+						<div class="d-flex justify-content-between">
+							<h6 class="mb-0"><a href="#">Louis Crawford</a></h6>
+							<span class="small">10D Ago</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Card item END -->
+
+		</div> <!-- Row end -->
+
+		<!-- Pagination START -->
+		<nav class="d-flex justify-content-center mt-5" aria-label="navigation">
+			<ul class="pagination pagination-primary-soft rounded mb-0">
+				<li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-double-left"></i></a></li>
+				<li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
+				<li class="page-item mb-0 active"><a class="page-link" href="#">2</a></li>
+				<li class="page-item mb-0"><a class="page-link" href="#">..</a></li>
+				<li class="page-item mb-0"><a class="page-link" href="#">6</a></li>
+				<li class="page-item mb-0"><a class="page-link" href="#"><i class="fas fa-angle-double-right"></i></a></li>
+			</ul>
+		</nav>
+		<!-- Pagination END -->
+
+	</div>
+</section>
+<!-- =======================
+Page content END -->
+
+</main>

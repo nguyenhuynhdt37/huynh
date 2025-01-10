@@ -1,0 +1,61 @@
+
+@{
+    ViewData["Title"] = "List User";
+}
+
+<main id="main" class="main"> 
+    <div class="pagetitle">
+        <h2>Danh sách người dùng</h2>
+
+        <p>
+            <a asp-area="Admin" asp-controller="User" asp-action="Create" type="button" class="btn btn-success">
+            <i class="bi bi-file-earmark-text me-1"></i>Add new user</a>
+            <section class="section dashboard">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card recent-sales overflow-auto">
+                            <div class="card-body mt-4">
+                                <table class="table table-borderless datatable">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-1">Avatar</th>
+                                            <th class="col-3">UserID</th>
+                                            <th class="col-2">Username</th>
+                                            <th class="col-2">Email</th>
+                                            <th class="col-2">Phone</th>
+                                            <th class="col-1">Role</th>
+                                            <th class="col-1">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var userWithRoles in Model)
+                                        {
+                                            <tr>
+                                                <td class="text-left " scope="row">
+                                                    <img src="@userWithRoles.User.Avatar" alt="Avatar" class="img-fluid rounded-2 border" style="width: 50px; height: 50px;" />
+                                                </td>
+                                                <td class="text-left" scope="row">@userWithRoles.User.Id</td>
+                                                <td class="text-left" scope="row">@userWithRoles.User.UserName</td>
+                                                <td class="text-left" scope="row">@userWithRoles.User.Email</td>
+                                                <td class="text-left" scope="row">@userWithRoles.User.PhoneNumber</td>
+                                                <td class="text-left" scope="row">@userWithRoles.RoleName</td>
+                                                <td class="text-left" scope="row">
+                                                    <a asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-id="@userWithRoles.User.Id" class="btn btn-primary btn-sm" title="Edit this user">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </a>
+                                                    <a asp-area="Admin" asp-controller="User" asp-action="Delete" asp-route-id="@userWithRoles.User.Id" class="btn btn-danger btn-sm" title="Delete this user">
+                                                        <i class="bi bi-trash"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </p>
+    </div>
+</main>

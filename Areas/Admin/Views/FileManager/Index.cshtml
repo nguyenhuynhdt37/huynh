@@ -1,0 +1,66 @@
+@{
+    ViewBag.Title = "File Manager";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+    <link rel="stylesheet" href="~/admin/lib/jqueryui/themes/base/theme.css" />
+    <link rel="stylesheet" href="~/admin/lib/jqueryui/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" href="~/admin/lib/elfinder/css/elfinder.full.css" />
+    <link rel="stylesheet" href="~/admin/lib/elfinder/css/theme.min.css" />
+    
+    <script src="~/admin/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/admin/lib/jqueryui/jquery-ui.min.js"></script>
+    <script src="~/admin/lib/elfinder/js/elfinder.min.js"></script>
+
+<main id="main" class="main">
+    <div class="container-fluid bg-light rounded-4 shadow p-4">
+        <div class="pagetitle">
+            <h2>File Manager</h2>
+        </div>
+        <div id="elfinder"></div>
+        <section class="section dashboard">
+            <script type="text/javascript">
+            // Documentation for client options:
+            // https://github.com/Studio-42/elFinder/wiki/Client-configuration-options
+            $(document).ready(function () {
+                var myCommands = elFinder.prototype._options.commands;
+                
+                // Not yet implemented commands in elFinder.NetCore
+                var disabled = ['callback', 'chmod', 'editor', 'netmount', 'ping', 'search', 'zipdl', 'help']; 
+                elFinder.prototype.i18.en.messages.TextArea = "Edit";
+
+                $.each(disabled, function (i, cmd) {
+                    (idx = $.inArray(cmd, myCommands)) !== -1 && myCommands.splice(idx, 1);
+                });
+
+                var options = {
+                    baseUrl: "@Url.Content("~/admin/lib/elFinder/")",
+                    url: "@Url.Action("Connector")",
+                    rememberLastDir: false, 
+                    commands: myCommands,
+                    uiOptions: { 
+                        toolbar: [
+                            ['back', 'forward'],
+                            ['reload'],
+                            ['home', 'up'],
+                            ['mkdir', 'mkfile', 'upload'],
+                            ['open', 'download'],
+                            ['undo', 'redo'],
+                            ['info'],
+                            ['quicklook'],
+                            ['copy', 'cut', 'paste'],
+                            ['rm'],
+                            ['duplicate', 'rename', 'edit'],
+                            ['selectall', 'selectnone', 'selectinvert'],
+                            ['view', 'sort']
+                        ]
+                    },
+                    //onlyMimes: ["image", "text/plain"] // Get files of requested mime types only
+                    lang: 'vi',
+                };
+                $('#elfinder').elfinder(options).elfinder('instance');
+            });
+            </script>
+        </section>
+    </div>
+</main>

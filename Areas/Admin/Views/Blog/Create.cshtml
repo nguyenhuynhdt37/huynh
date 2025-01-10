@@ -1,0 +1,71 @@
+@model Blog
+@{
+	ViewData["Title"] = "Create new Blog";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main bg-body">
+    <div class="pagetitle">
+        <h2>Thêm 1 bài viết mới</h2>
+    </div>
+    <div class="container shadow p-5 bg-light">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row g-3">
+                <div class="col-12 mb-3">
+                    <label class="form-label">Tiêu đề bài viết</label>
+                    <textarea asp-for="Title" required class="form-control" placeholder="Tiêu đề bài viết..." rows="2" type="text"></textarea>
+                    <span asp-validation-for="Title" class="alert-danger"></span>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Hình ảnh</label>
+                    <input asp-for="Image" type="text" id="file_input" class="form-control" placeholder="Chọn ảnh" />
+                    <button onclick="openDialog()" type="button" id="chooseImageBtn" class="btn btn-primary btn-sm mt-2">Chọn ảnh</button>
+                    <img id="previewImage" src="" alt="Preview Image" style="display:none;" />
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Thể loại</label>
+                    <select asp-for="BlogCategoryId" asp-items="ViewBag.BlogCategoryId" class="form-control">
+                        <option value="-1">-- Chọn thể loại --</option>
+                    </select>
+                    <span asp-validation-for="BlogCategoryId" class="alert-danger"></span>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Trạng thái</label>
+                    <select asp-for="Status" class="form-control">
+                        <option value="-1">-- Chọn trạng thái --</option>
+                        <option value="true">Active</option>
+                        <option value="false">Inactive</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Tác giả</label>
+                    <input asp-for="Author" required class="form-control" placeholder="Họ tên của bạn..." type="text" />
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Ngày đăng</label>
+                    <input asp-for="CreatedDate" required class="form-control" type="date" />
+                </div>
+                <div class="col-12 mb-3">
+                    <label class="form-label">Nội dung bài viết</label>
+                    <textarea asp-for="Content" required class="form-control" rows="10"></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Thêm</button>
+            <a asp-area="Admin" asp-controller="Blog" asp-action="Index" class="btn btn-secondary">Thoát</a>
+            @* <a href="javascript:history.back()" class="btn btn-secondary">Back</a> *@
+        </form>
+    </div>
+</main>
+
+@{
+    var summernote = new OnlineCourse.Areas.Admin.Models.SummerNote("#Content");
+    <partial name="_SummerNote" model="summernote" />
+}
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

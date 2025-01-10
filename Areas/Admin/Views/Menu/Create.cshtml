@@ -1,0 +1,63 @@
+@model OnlineCourse.Models.AdminMenu
+@{
+    ViewData["Title"] = "Add new admin menu";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Add new admin menu</h2>
+    </div>
+    <div class="container shadow p-5">
+        <form asp-action="Create" method="post">
+            <div class="form-row">
+                <div class="form-group col-md-6 mb-3">
+                    <label>Menu Name</label>
+                    <input class="form-control" asp-for="ItemName" placeholder="Menu name..." type="text">
+                    <span asp-validation-for="ItemName" class="alert-danger"></span>
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label>Levels</label>
+                    <select asp-for="ItemLevel" id="Levels" class="form-select">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label>Display order</label>
+                    <input class="form-control" asp-for="ItemOrder" placeholder="Enter the order..." type="text" value="0">
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label>Area Name</label>
+                    <input class="form-control" asp-for="AreaName" placeholder="Area name..." type="text">
+                    <span asp-validation-for="AreaName" class="alert-danger"></span>
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label>Controller Name</label>
+                    <input class="form-control" asp-for="ControllerName" placeholder="Controller name..." type="text">
+                    <span asp-validation-for="ControllerName" class="alert-danger"></span>
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label>Action Name</label>
+                    <input class="form-control" asp-for="ActionName" placeholder="Action name..." type="text">
+                    <span asp-validation-for="ActionName" class="alert-danger"></span>
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label>Icon</label>
+                    <input class="form-control" asp-for="Icon" placeholder="Icon name..." type="text">
+                    <span asp-validation-for="Icon" class="alert-danger"></span>
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label>
+                        @Html.CheckBox("IsActive", false)
+                        <span>Visible</span>
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add</button>
+
+            <a asp-area="Admin" asp-controller="Menu" asp-action="Index" class="btn btn-secondary">Back</a>
+        </form>
+    </div>
+</main>

@@ -1,0 +1,36 @@
+@model OnlineCourse.Models.BlogCategory
+@{
+    ViewData["Title"] = "Thêm danh mục bài viết mới";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Thêm danh mục bài viết mới</h2>
+    </div>
+    <div class="container shadow p-5">
+        <form asp-action="Create" method="post">
+            <div class="form-row">
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="Name">Tên danh mục</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="Slug">Slug</label>
+                    <input asp-for="Slug" class="form-control" />
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label>
+                        @Html.CheckBox("Status", false)
+                        <span>Hiển thị</span>
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Thêm</button>
+
+            <a asp-area="Admin" asp-controller="BlogCategory" asp-action="Index" class="btn btn-secondary">Trở về</a>
+        </form>
+    </div>
+</main>

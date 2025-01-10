@@ -1,0 +1,72 @@
+@using OnlineCourse.Models
+@model IList<AdminMenu>
+@{
+    ViewData["Title"] = "Danh sách chức năng";
+}
+<main id="main" class="main"> 
+    <div class="pagetitle">
+        <h2>Danh sách chức năng</h2>
+
+        <p>
+            <a asp-area="Admin" asp-controller="Menu" asp-action="Create" type="button" class="btn btn-success">
+            <i class="bi bi-file-earmark-text me-1"></i>Add a menu</a>
+            <section class="section dashboard">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card recent-sales overflow-auto">
+                            <div class="card-body mt-4">
+                                <table class="table table-borderless datatable">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-1">#</th>
+                                            <th class="col-3">Menuname</th>
+                                            <th class="col-1">Levels</th>
+                                            <th class="col-1">Status</th>
+                                            <th class="col-1">Areas</th>
+                                            <th class="col-1">Controller</th>
+                                            <th class="col-1">Action</th>
+                                            <th class="col-2">Icon</th>
+                                            <th class="col-1">Functions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td class="text-left" scope="row">@item.AdminMenuId</td>
+                                                <td class="text-left" scope="row">@item.ItemName</td>
+                                                <td class="text-left" scope="row">@item.ItemLevel</td>
+                                                <td class="text-left" scope="row">
+                                                    @if (@item.IsActive == true)
+                                                    {
+                                                        <span class="badge bg-success">Active</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge bg-danger">Inactive</span>
+                                                    }
+                                                </td>
+                                                <td class="text-left" scope="row">@item.AreaName</td>
+                                                <td class="text-left" scope="row">@item.ControllerName</td>
+                                                <td class="text-left" scope="row">@item.ActionName</td>
+                                                <td class="text-left" scope="row">@item.Icon</td>
+                                                <td class="text-left" scope="row">
+                                                    <a asp-area="Admin" asp-controller="Menu" asp-action="Edit" asp-route-id="@item.AdminMenuId" class="btn btn-primary">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </a>
+                                                    <a asp-area="Admin" asp-controller="Menu" asp-action="Delete" asp-route-id="@item.AdminMenuId" class="btn btn-danger">
+                                                        <i class="bi bi-trash"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </p>
+    </div>
+</main>

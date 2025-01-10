@@ -1,0 +1,34 @@
+@using Microsoft.AspNetCore.Identity
+@model IdentityRole
+
+@{
+	ViewData["Title"] = "Create new Role";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Create new role</h2>
+    </div>
+    <div class="container shadow p-5">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-row">
+                <div class="form-group col-md-6 mb-3">
+                    <label>Role name</label>
+                    <input asp-for="Name" required class="form-control" placeholder="ex: Admin, user,..." type="text">
+                    <span asp-validation-for="Name" class="alert-danger"></span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create</button>
+
+            <a asp-area="Admin" asp-controller="Role" asp-action="Index" class="btn btn-secondary">Back</a>
+        </form>
+    </div>
+</main>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

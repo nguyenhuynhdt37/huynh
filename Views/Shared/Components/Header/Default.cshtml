@@ -1,0 +1,143 @@
+@model IEnumerable<CourseCategory>
+
+<header class="navbar-light navbar-sticky header-static shadow ">
+	<!-- Logo Nav START -->
+	<nav class="navbar navbar-expand-xl">
+		<div class="container-fluid px-3 px-xl-5">
+			<!-- Logo START -->
+			<a class="navbar-brand" href="/">
+				<img class="light-mode-item navbar-brand-item" src="~/assets/images/logo.svg" alt="logo">
+				<img class="dark-mode-item navbar-brand-item" src="~/assets/images/logo-light.svg" alt="logo">
+			</a>
+			<!-- Logo END -->
+
+			<!-- Responsive navbar toggler -->
+			<button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-animation">
+					<span></span>
+					<span></span>
+					<span></span>
+				</span>
+			</button>
+
+			<!-- Main navbar START -->
+			<div class="navbar-collapse w-100 collapse" id="navbarCollapse">
+
+				<!-- Nav category menu START -->
+				<ul class="navbar-nav navbar-nav-scroll me-auto">
+					<!-- Nav item 1 Demos -->
+					<li class="nav-item dropdown dropdown-menu-shadow-stacked">
+						<a class="nav-link bg-primary bg-opacity-10 rounded-3 text-primary px-3 py-3 py-xl-0" href="#" id="categoryMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-ui-radios-grid me-2"></i><span>Danh mục Khoá học</span></a>
+						<ul class="dropdown-menu" aria-labelledby="categoryMenu">
+							<!-- Dropdown submenu -->
+                            @foreach (var item in Model)
+                            {
+                                <li> <a class="dropdown-item" asp-action="Index" asp-controller="Category" asp-route-Slug="@item.Slug">@item.Name</a></li>
+                            }
+							<li> <hr class="dropdown-divider"></li>
+							<li> <a class="dropdown-item bg-primary text-primary bg-opacity-10 rounded-2 mb-0" asp-action="AllCourses" asp-controller="Home">Xem tất cả</a></li>
+						</ul>
+					</li>
+				</ul>
+				<!-- Nav category menu END -->
+
+				<!-- Nav Main menu START -->
+				<ul class="navbar-nav navbar-nav-scroll me-auto">
+					<!-- Nav item 1 Demos -->
+					<li class="nav-item">
+						<a class="nav-link active" href="\" id="demoMenu">Trang chủ</a>
+					</li>
+
+					<!-- Nav item 2 Pages -->
+					<li class="nav-item dropdown">
+						<a class="nav-link" asp-controller="Blog" asp-action="Index" id="pagesMenu">Tin tức</a>
+					</li>
+
+                    <!-- Nav item 4 Document -->
+                    <li class="nav-item dropdown">
+						<a class="nav-link" asp-controller="Document" asp-action="Index" id="pagesMenu">Tài liệu</a>
+					</li>
+
+                    <!-- Nav item 6 Account -->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="accounntMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tài khoản</a>
+						<ul class="dropdown-menu" aria-labelledby="accounntMenu">
+							<!-- Dropdown submenu -->
+							<li class="dropdown-submenu dropend">
+								<a class="dropdown-item dropdown-toggle" href="#"><i class="fas fa-user-tie fa-fw me-1"></i>Instructor</a>
+							</li>
+
+							<!-- Dropdown submenu -->
+							<li class="dropdown-submenu dropend">
+								<a class="dropdown-item dropdown-toggle" href="#"><i class="fas fa-user-graduate fa-fw me-1"></i>Student</a>
+							</li>
+							
+							<li> <a class="dropdown-item" asp-area="Admin" asp-controller="Home"><i class="fas fa-user-cog fa-fw me-1"></i>Admin</a> </li>
+							<li> <hr class="dropdown-divider"></li>
+							<li> <a class="dropdown-item" href="instructor-edit-profile.html"><i class="fas fa-fw fa-edit me-1"></i>Edit Profile</a> </li>
+							<li> <a class="dropdown-item" href="instructor-setting.html"><i class="fas fa-fw fa-cog me-1"></i>Settings</a> </li>
+							<li> <a class="dropdown-item" href="instructor-delete-account.html"><i class="fas fa-fw fa-trash-alt me-1"></i>Delete Profile</a> </li>
+						</ul>
+					</li>
+					
+				</ul>
+				<!-- Nav Main menu END -->
+
+				<!-- Nav Search START -->
+				<div class="nav my-3 my-xl-0 px-4 flex-nowrap align-items-center">
+					<div class="nav-item w-100">
+						<form class="position-relative">
+							<input class="form-control pe-5 bg-transparent" type="search" placeholder="Search" aria-label="Search">
+							<button class="btn bg-transparent px-2 py-0 position-absolute top-50 end-0 translate-middle-y" type="submit"><i class="fas fa-search fs-6 "></i></button>
+						</form>
+					</div>
+				</div>
+				<!-- Nav Search END -->
+			</div>
+			<!-- Main navbar END -->
+
+			<!-- Profile START -->
+			<div class="dropdown ms-1 ms-lg-0">
+				@if (User.Identity?.IsAuthenticated ?? false)
+				{
+                    <a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img class="avatar-img rounded-circle" src="~/assets/images/avatar/01.jpg" alt="avatar">
+                    </a>
+                    <ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
+                        <li class="px-3">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar me-3">
+                                    <img class="avatar-img rounded-circle shadow" src="~/assets/images/avatar/01.jpg" alt="avatar">
+                                </div>
+                                <div>
+                                    <p class="h6">@User.Identity.Name</p>
+                                </div>
+                            </div>
+                            <hr>
+                        </li>
+                        <li><a class="dropdown-item" asp-controller="Profile" asp-action="Index"><i class="bi bi-person fa-fw me-2"></i>My Profile</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-gear fa-fw me-2"></i>Account Settings</a></li>
+                        @Html.AntiForgeryToken()
+                        <li><a class="dropdown-item bg-danger-soft-hover" asp-action="Logout" asp-controller="Account"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
+                        <li> <hr class="dropdown-divider"></li>
+                        <li>
+                            <div class="modeswitch-wrap" id="darkModeSwitch">
+                                <div class="modeswitch-item">
+                                    <div class="modeswitch-icon"></div>
+                                </div>
+                                <span>Dark mode</span>
+                            </div>
+                        </li> 
+                    </ul>
+				}
+				else
+				{
+					<div class="d-flex">
+						<a class="btn btn-outline-primary" asp-controller="Account" asp-action="Register">Sign up</a>
+						<a class="btn btn-primary ms-2" asp-controller="Account" asp-action="Login">Log in</a>
+					</div>
+				}
+			</div>
+		</div>
+	</nav>
+</header>

@@ -1,0 +1,73 @@
+@model IEnumerable<Document>
+@{
+    ViewData["Title"] = "Danh sách tài liệu";
+}
+<main id="main" class="main"> 
+    <div class="pagetitle">
+        <h2>Tài liệu học tập</h2>
+
+        <p>
+            <a asp-area="Admin" asp-controller="Document" asp-action="Create" type="button" class="btn btn-success">
+            <i class="bi bi-file-earmark-text me-1"></i>Thêm tài liệu mới</a>
+            <section class="section dashboard">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card recent-sales overflow-auto">
+                            <div class="card-body mt-4">
+                                <table class="table table-borderless datatable">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-1">ID</th>
+                                            <th class="col-3">Tên tài liệu</th>
+                                            <th class="col-3">Mô tả</th>
+                                            <th class="col-1">Loại</th>
+                                            <th class="col-2">File</th>
+                                            <th class="col-1">Trạng thái</th>
+                                            <th class="col-1">Hoạt động</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td class="text-left" scope="row">@item.Id</td>
+                                                <td class="text-left" scope="row">@item.Name</td>
+                                                <td class="text-left" scope="row">@item.Description</td>
+                                                <td class="text-left" scope="row">@item.Type</td>
+                                                <td class="text-left" scope="row">
+                                                    <a href="@item.FilePath" target="_blank" class="btn btn-primary">
+                                                        <i class="bi bi-file-earmark-text"></i> Download
+                                                    </a>
+                                                </td>
+                                                <td class="text-left" scope="row">
+                                                    @if (@item.Status == true)
+                                                    {
+                                                        <span class="badge bg-success">Active</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge bg-danger">Inactive</span>
+                                                    }
+                                                </td>
+                        
+                                                <td class="text-left" scope="row">
+                                                    <a asp-area="Admin" asp-controller="Document" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </a>
+                                                    <a asp-area="Admin" asp-controller="Document" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger" id="confirmDeletion">
+                                                        <i class="bi bi-trash"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </p>
+    </div>
+</main>
+

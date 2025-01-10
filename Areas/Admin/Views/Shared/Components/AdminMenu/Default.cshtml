@@ -1,0 +1,36 @@
+@using OnlineCourse.Models
+@model IList<AdminMenu>
+
+<aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+        
+        @foreach (var item in Model)
+        {
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="@Url.Action(item.ActionName, item.ControllerName, new { area = item.AreaName })">
+                    <i class="@item.Icon"></i>
+                    <span>@item.ItemName</span>
+                </a>
+            </li>
+        }
+
+        <li class="nav-heading">Pages</li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" asp-area="Admin" asp-controller="Profile" asp-action="Index">
+                <i class="bi bi-person"></i>
+                <span>Profile</span>
+            </a>
+        </li><!-- End Profile Page Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="/">
+                <i class="bi bi-house-heart"></i>
+                <span>Về trang Client</span>
+            </a>
+        </li><!-- End Blank Page Nav -->
+
+    </ul>
+
+</aside>

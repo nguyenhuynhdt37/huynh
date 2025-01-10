@@ -1,0 +1,204 @@
+@model RegisterViewModel
+@{
+  ViewData["Title"] = "Register";
+}
+
+<link id="style-switch" rel="stylesheet" type="text/css" href="~/assets/css/style.css">
+
+<main>
+	<section class="p-0 d-flex align-items-center position-relative overflow-hidden">
+	
+		<div class="container-fluid">
+			<div class="row">
+				<!-- left -->
+				<div class="col-12 col-lg-6 d-md-flex align-items-center justify-content-center bg-primary bg-opacity-10 vh-lg-100">
+					<div class="p-3 p-lg-5">
+						<!-- Title -->
+						<div class="text-center">
+							<h2 class="fw-bold">Welcome to our largest community</h2>
+							<p class="mb-0 h6 fw-light">Let's learn something new today!</p>
+						</div>
+						<!-- SVG Image -->
+						<img src="~/assets/images/element/02.svg" class="mt-5" alt="">
+						<!-- Info -->
+						<div class="d-sm-flex mt-5 align-items-center justify-content-center">
+							<ul class="avatar-group mb-2 mb-sm-0">
+								<li class="avatar avatar-sm"><img class="avatar-img rounded-circle" src="~/assets/images/avatar/01.jpg" alt="avatar"></li>
+								<li class="avatar avatar-sm"><img class="avatar-img rounded-circle" src="~/assets/images/avatar/02.jpg" alt="avatar"></li>
+								<li class="avatar avatar-sm"><img class="avatar-img rounded-circle" src="~/assets/images/avatar/03.jpg" alt="avatar"></li>
+								<li class="avatar avatar-sm"><img class="avatar-img rounded-circle" src="~/assets/images/avatar/04.jpg" alt="avatar"></li>
+							</ul>
+							<!-- Content -->
+							<p class="mb-0 h6 fw-light ms-0 ms-sm-3">4k+ Students joined us, now it's your turn.</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Right -->
+				<div class="col-12 col-lg-6 m-auto">
+					<div class="row my-5">
+						<div class="col-sm-10 col-xl-8 m-auto">
+							<!-- Title -->
+							<img src="~/assets/images/element/03.svg" class="h-40px mb-2" alt="">
+							<h2>Đăng ký tài khoản của bạn!</h2>
+							<p class="lead mb-4">Rất vui được gặp bạn! Vui lòng Đăng ký để trải nghiệm mọi thứ.</p>
+						
+							<!-- Form START -->
+							<form method="post" asp-action="Register" asp-controller="Account">
+								<!-- Username -->
+								<div class="mb-4">
+									<label for="inputName" class="form-label">Username *</label>
+									<div class="input-group input-group-lg">
+										<span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i class="bi bi-person-fill"></i></span>
+										<input asp-for="Username" type="text" class="form-control border-0 bg-light rounded-end ps-1" placeholder="Username" id="inputName">
+									</div>
+								</div>
+								<!-- Email -->
+								<div class="mb-4">
+									<label for="exampleInputEmail1" class="form-label">Email *</label>
+									<div class="input-group input-group-lg">
+										<span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i class="bi bi-envelope-fill"></i></span>
+										<input asp-for="Email" type="email" class="form-control border-0 bg-light rounded-end ps-1" placeholder="E-mail" id="exampleInputEmail1">
+									</div>
+								</div>
+								<!-- Password -->
+								<div class="mb-4">
+									<label for="inputPassword5" class="form-label">Mật khẩu *</label>
+									<div class="input-group input-group-lg">
+										<span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i class="fas fa-lock"></i></span>
+										<input asp-for="Password" type="password" class="form-control border-0 bg-light rounded-end ps-1" placeholder="*********" id="inputPassword5">
+									</div>
+								</div>
+								<!-- Confirm Password -->
+								<div class="mb-4">
+									<label for="inputPassword6" class="form-label">Xác nhận mật khẩu *</label>
+									<div class="input-group input-group-lg">
+										<span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i class="fas fa-lock"></i></span>
+										<input asp-for="ConfirmPassword" type="password" class="form-control border-0 bg-light rounded-end ps-1" placeholder="*********" id="inputPassword6">
+									</div>
+								</div>
+								
+								<!-- Check box -->
+								<div class="mb-4">
+									<div class="form-check">
+										<input type="checkbox" class="form-check-input" id="checkbox-1">
+										<label class="form-check-label" for="checkbox-1">Bằng cách đăng ký, bạn đồng ý với <a href="#"> các điều khoản dịch vụ</a></label>
+									</div>
+								</div>
+								<!-- Button -->
+								<div class="align-items-center mt-0">
+									<div class="d-grid">
+										<button class="btn btn-primary mb-0" type="submit">Đăng ký</button>
+									</div>
+								</div>
+							</form>
+							<!-- Form END -->
+
+							<!-- Social buttons -->
+							<div class="row">
+								<!-- Divider with text -->
+								<div class="position-relative my-4">
+									<hr>
+									<p class="small position-absolute top-50 start-50 translate-middle bg-body px-5">Or</p>
+								</div>
+								<!-- Social btn -->
+								<div class="col-xxl-6 d-grid">
+									<a href="#" class="btn bg-google mb-2 mb-xxl-0"><i class="fab fa-fw fa-google text-white me-2"></i>Signup with Google</a>
+								</div>
+								<!-- Social btn -->
+								<div class="col-xxl-6 d-grid">
+									<a href="#" class="btn bg-facebook mb-0"><i class="fab fa-fw fa-facebook-f me-2"></i>Signup with Facebook</a>
+								</div>
+							</div>
+
+							<!-- Sign up link -->
+							<div class="mt-4 text-center">
+								<span>Bạn đã có tài khoản?<a asp-action="Login" asp-controller="Account"> Đăng nhập ngay!</a></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</main>
+
+@* <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+        <div class="d-flex justify-content-center py-4">
+          <a href="index.html" class="logo d-flex align-items-center w-auto">
+            <img src="~/Admin~/~/assets//img/logo.png" alt="">
+            <span class="d-none d-lg-block">NiceAdmin</span>
+          </a>
+        </div><!-- End Logo -->
+
+        <div class="card mb-3">
+
+          <div class="card-body">
+
+            <div class="pt-4 pb-2">
+              <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
+              <p class="text-center small">Enter your personal details to create account</p>
+            </div>
+
+            <form class="row g-3 needs-validation" method="post" asp-action="Register" asp-controller="Account">
+              <div class="col-12">
+                <label asp-for="Username" class="form-label">Your UserName</label>
+                <input asp-for="Username" type="text" class="form-control" id="yourName" required>
+                <div class="invalid-feedback">Please, enter your username!</div>
+              </div>
+
+              <div class="col-12">
+                <label asp-for="Email" class="form-label">Your Email</label>
+                <input asp-for="Email" type="email" class="form-control" id="yourEmail" required>
+                <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+              </div>
+
+              <div class="col-12">
+                <label asp-for="Password" class="form-label">Password</label>
+                <input asp-for="Password" type="password" class="form-control" id="yourPassword" required>
+                <div class="invalid-feedback">Please enter your password!</div>
+              </div>
+
+              <div class="col-12">
+                <label asp-for="ConfirmPassword" class="form-label">Confirm Password</label>
+                <input asp-for="ConfirmPassword" type="password" class="form-control" id="confirmPassword" required>
+                <div class="invalid-feedback">Please confirm your password!</div>
+              </div>
+
+              <div class="col-12">
+                <div class="form-check">
+                  <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
+                  <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and
+                      conditions</a></label>
+                  <div class="invalid-feedback">You must agree before submitting.</div>
+                </div>
+              </div>
+              <div class="col-12">
+                <button class="btn btn-primary w-100" type="submit">Create Account</button>
+              </div>
+              <div class="col-12">
+                <p class="small mb-0">Already have an account? <a asp-action="Login" asp-controller="Account">Log in</a>
+                </p>
+              </div>
+            </form>
+
+          </div>
+        </div>
+
+        <div class="credits">
+          <!-- All the links in the footer should remain intact. -->
+          <!-- You can delete the links only if you purchased the pro version. -->
+          <!-- Licensing information: https://bootstrapmade.com/license/ -->
+          <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</section> *@

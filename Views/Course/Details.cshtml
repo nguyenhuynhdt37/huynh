@@ -1,0 +1,617 @@
+@model Course
+@{
+	ViewBag.Title = @Model.Name;
+}
+
+<main>
+	<!-- =======================
+Page banner video START -->
+	<section class="py-0 pb-lg-5">
+		<div class="container">
+			<div class="row g-3">
+				<!-- Course video START -->
+				<div class="col-12">
+					<div class="video-player mt-2">
+						<iframe class="rounded-3" id="lessonVideo" width="1280" height="720"
+							src="https://www.youtube.com/embed/" poster="@Model.Image" frameborder="0"
+							allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+							allowfullscreen>
+						</iframe>
+					</div>
+				</div>
+				<!-- Course video END -->
+
+				<!-- Playlist responsive toggler START -->
+				<div class="col-12">
+					<button class="btn btn-primary d-lg-none mb-4" type="button" data-bs-toggle="offcanvas"
+						data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
+						<i class="bi bi-camera-video me-1"></i> Playlist
+					</button>
+				</div>
+				<!-- Playlist responsive toggler END -->
+			</div>
+		</div>
+	</section>
+	<!-- =======================
+Page banner video END -->
+
+	<!-- =======================
+Page content START -->
+	<section class="pt-0">
+		<div class="container">
+			<div class="row g-lg-5">
+
+				<!-- Main content START -->
+				<div class="col-lg-8">
+					<div class="row g-4">
+
+						<!-- Course title START -->
+						<div class="col-12">
+							<!-- Title -->
+							<h1>@Model.Name</h1>
+
+							<!-- Progress bar -->
+							<p class="mb-1 h6 progress">1/3 Completed (tiến độ) 100%</p>
+							<div class="progress progress-sm bg-primary bg-opacity-10 my-4">
+								<div class="progress-bar bg-primary aos" role="progressbar" data-aos="slide-right"
+									data-aos-delay="200" data-aos-duration="1000" data-aos-easing="ease-in-out"
+									style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+								</div>
+							</div>
+
+							<!-- Content -->
+							<ul class="list-inline mb-0">
+								<li class="list-inline-item h6 me-3 mb-1 mb-sm-0"><i
+										class="fas fa-star text-warning me-2"></i>4.5/5.0</li>
+								<li class="list-inline-item h6 me-3 mb-1 mb-sm-0"><i
+										class="fas fa-user-graduate text-orange me-2"></i>12k Enrolled</li>
+								<li class="list-inline-item h6 me-3 mb-1 mb-sm-0"><i
+										class="fas fa-signal text-success me-2"></i>All levels</li>
+							</ul>
+						</div>
+						<!-- Course title END -->
+
+						<!-- Instructor detail START -->
+						<div class="col-12">
+							<div class="d-sm-flex justify-content-sm-between align-items-center">
+								<!-- Avatar detail -->
+								<div class="d-flex align-items-center">
+									<!-- Avatar image -->
+									<div class="avatar avatar-lg">
+										<img class="avatar-img rounded-circle" src="assets/images/avatar/05.jpg"
+											alt="avatar">
+									</div>
+									<div class="ms-3">
+										<h6 class="mb-0"><a href="#">By Jacqueline Miller</a></h6>
+										<p class="mb-0 small">Founder Eduport company</p>
+									</div>
+								</div>
+
+								<!-- Button -->
+								<div class="d-flex mt-2 mt-sm-0">
+									<a class="btn btn-danger-soft btn-sm mb-0" href="#">Follow</a>
+									<!-- Share button with dropdown -->
+									<div class="dropdown ms-2">
+										<a href="#" class="btn btn-sm mb-0 btn-info-soft small" role="button"
+											id="dropdownShare" data-bs-toggle="dropdown" aria-expanded="false">
+											share
+										</a>
+										<!-- dropdown button -->
+										<ul class="dropdown-menu dropdown-w-sm dropdown-menu-end min-w-auto shadow rounded"
+											aria-labelledby="dropdownShare">
+											<li><a class="dropdown-item" href="#"><i
+														class="fab fa-twitter-square me-2"></i>Twitter</a></li>
+											<li><a class="dropdown-item" href="#"><i
+														class="fab fa-facebook-square me-2"></i>Facebook</a></li>
+											<li><a class="dropdown-item" href="#"><i
+														class="fab fa-linkedin me-2"></i>LinkedIn</a></li>
+											<li><a class="dropdown-item" href="#"><i class="fas fa-copy me-2"></i>Copy
+													link</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Instructor detail END -->
+
+						<!-- Course detail START -->
+						<div class="col-12">
+							<!-- Tabs START -->
+							<ul class="nav nav-pills nav-pills-bg-soft px-3" id="course-pills-tab" role="tablist">
+								<!-- Tab item -->
+								<li class="nav-item me-2 me-sm-4" role="presentation">
+									<button class="nav-link mb-0 active" id="course-pills-tab-1" data-bs-toggle="pill"
+										data-bs-target="#course-pills-1" type="button" role="tab"
+										aria-controls="course-pills-1" aria-selected="true">Tổng quan</button>
+								</li>
+								<!-- Tab item -->
+								<li class="nav-item me-2 me-sm-4" role="presentation">
+									<button class="nav-link mb-0" id="course-pills-tab-2" data-bs-toggle="pill"
+										data-bs-target="#course-pills-2" type="button" role="tab"
+										aria-controls="course-pills-2" aria-selected="false">Đánh giá</button>
+								</li>
+								<!-- Tab item -->
+								<li class="nav-item me-2 me-sm-4" role="presentation">
+									<button class="nav-link mb-0" id="course-pills-tab-3" data-bs-toggle="pill"
+										data-bs-target="#course-pills-3" type="button" role="tab"
+										aria-controls="course-pills-3" aria-selected="false">Chi tiết khoá học </button>
+								</li>
+							</ul>
+							<!-- Tabs END -->
+
+							<!-- Tab contents START -->
+							<div class="tab-content pt-4 px-3" id="course-pills-tabContent">
+								<!-- Content START -->
+								<div class="tab-pane fade show active" id="course-pills-1" role="tabpanel"
+									aria-labelledby="course-pills-tab-1">
+									<!-- Course detail START -->
+									<h5 class="mb-3">Mô tả khoá học</h5>
+									<div class="">
+										@Model.Description
+									</div>
+									<!-- Course detail END -->
+								</div>
+								<!-- Content END -->
+
+								<!-- Content START -->
+								<div class="tab-pane fade" id="course-pills-2" role="tabpanel"
+									aria-labelledby="course-pills-tab-2">
+									<!-- Review START -->
+									<div class="row mb-4">
+										<h5 class="mb-4">Our Student Reviews</h5>
+
+										<!-- Rating info -->
+										<div class="col-md-4 mb-3 mb-md-0">
+											<div class="text-center">
+												<!-- Info -->
+												<h2 class="mb-0">4.5</h2>
+												<!-- Star -->
+												<ul class="list-inline mb-0">
+													<li class="list-inline-item me-0"><i
+															class="fas fa-star text-warning"></i></li>
+													<li class="list-inline-item me-0"><i
+															class="fas fa-star text-warning"></i></li>
+													<li class="list-inline-item me-0"><i
+															class="fas fa-star text-warning"></i></li>
+													<li class="list-inline-item me-0"><i
+															class="fas fa-star text-warning"></i></li>
+													<li class="list-inline-item me-0"><i
+															class="fas fa-star-half-alt text-warning"></i></li>
+												</ul>
+												<p class="mb-0">(Based on todays review)</p>
+											</div>
+										</div>
+
+										<!-- Progress-bar and star -->
+										<div class="col-md-8">
+											<div class="row align-items-center text-center">
+												<!-- Progress bar and Rating -->
+												<div class="col-6 col-sm-8">
+													<!-- Progress item -->
+													<div class="progress progress-sm bg-warning bg-opacity-15">
+														<div class="progress-bar bg-warning" role="progressbar"
+															style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+															aria-valuemax="100">
+														</div>
+													</div>
+												</div>
+
+												<div class="col-6 col-sm-4">
+													<!-- Star item -->
+													<ul class="list-inline mb-0">
+														<li class="list-inline-item me-0 small"><i
+																class="fas fa-star text-warning"></i></li>
+														<li class="list-inline-item me-0 small"><i
+																class="fas fa-star text-warning"></i></li>
+														<li class="list-inline-item me-0 small"><i
+																class="fas fa-star text-warning"></i></li>
+														<li class="list-inline-item me-0 small"><i
+																class="fas fa-star text-warning"></i></li>
+														<li class="list-inline-item me-0 small"><i
+																class="fas fa-star text-warning"></i></li>
+													</ul>
+												</div>
+
+												<!-- Progress bar and Rating -->
+												<div class="col-6 col-sm-8">
+													<!-- Progress item -->
+													<div class="progress progress-sm bg-warning bg-opacity-15">
+														<div class="progress-bar bg-warning" role="progressbar"
+															style="width: 80%" aria-valuenow="80" aria-valuemin="0"
+															aria-valuemax="100">
+														</div>
+													</div>
+												</div>
+
+												<div class="col-6 col-sm-4">
+													<!-- Star item -->
+													<ul class="list-inline mb-0">
+														<li class="list-inline-item me-0 small"><i
+																class="fas fa-star text-warning"></i></li>
+														<li class="list-inline-item me-0 small"><i
+																class="fas fa-star text-warning"></i></li>
+														<li class="list-inline-item me-0 small"><i
+																class="fas fa-star text-warning"></i></li>
+														<li class="list-inline-item me-0 small"><i
+																class="fas fa-star text-warning"></i></li>
+														<li class="list-inline-item me-0 small"><i
+																class="far fa-star text-warning"></i></li>
+													</ul>
+												</div>
+
+												<!-- Progress bar and Rating -->
+												<div class="col-6 col-sm-8">
+													<!-- Progress item -->
+													<div class="progress progress-sm bg-warning bg-opacity-15">
+														<div class="progress-bar bg-warning" role="progressbar"
+															style="width: 60%" aria-valuenow="60" aria-valuemin="0"
+															aria-valuemax="100">
+														</div>
+													</div>
+												</div>
+
+												<div class="col-6 col-sm-4">
+													<!-- Star item -->
+													<ul class="list-inline mb-0">
+														<li class="list-inline-item me-0 small"><i
+																class="fas fa-star text-warning"></i></li>
+														<li class="list-inline-item me-0 small"><i
+																class="fas fa-star text-warning"></i></li>
+														<li class="list-inline-item me-0 small"><i
+																class="fas fa-star text-warning"></i></li>
+														<li class="list-inline-item me-0 small"><i
+																class="far fa-star text-warning"></i></li>
+														<li class="list-inline-item me-0 small"><i
+																class="far fa-star text-warning"></i></li>
+													</ul>
+												</div>
+
+												<!-- Progress bar and Rating -->
+												<div class="col-6 col-sm-8">
+													<!-- Progress item -->
+													<div class="progress progress-sm bg-warning bg-opacity-15">
+														<div class="progress-bar bg-warning" role="progressbar"
+															style="width: 40%" aria-valuenow="40" aria-valuemin="0"
+															aria-valuemax="100">
+														</div>
+													</div>
+												</div>
+
+												<div class="col-6 col-sm-4">
+													<!-- Star item -->
+													<ul class="list-inline mb-0">
+														<li class="list-inline-item me-0 small"><i
+																class="fas fa-star text-warning"></i></li>
+														<li class="list-inline-item me-0 small"><i
+																class="fas fa-star text-warning"></i></li>
+														<li class="list-inline-item me-0 small"><i
+																class="far fa-star text-warning"></i></li>
+														<li class="list-inline-item me-0 small"><i
+																class="far fa-star text-warning"></i></li>
+														<li class="list-inline-item me-0 small"><i
+																class="far fa-star text-warning"></i></li>
+													</ul>
+												</div>
+
+												<!-- Progress bar and Rating -->
+												<div class="col-6 col-sm-8">
+													<!-- Progress item -->
+													<div class="progress progress-sm bg-warning bg-opacity-15">
+														<div class="progress-bar bg-warning" role="progressbar"
+															style="width: 20%" aria-valuenow="20" aria-valuemin="0"
+															aria-valuemax="100">
+														</div>
+													</div>
+												</div>
+
+												<div class="col-6 col-sm-4">
+													<!-- Star item -->
+													<ul class="list-inline mb-0">
+														<li class="list-inline-item me-0 small"><i
+																class="fas fa-star text-warning"></i></li>
+														<li class="list-inline-item me-0 small"><i
+																class="far fa-star text-warning"></i></li>
+														<li class="list-inline-item me-0 small"><i
+																class="far fa-star text-warning"></i></li>
+														<li class="list-inline-item me-0 small"><i
+																class="far fa-star text-warning"></i></li>
+														<li class="list-inline-item me-0 small"><i
+																class="far fa-star text-warning"></i></li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- Review END -->
+
+									<!-- Student review START -->
+									<div class="row">
+										<!-- Review item START -->
+										<div class="d-md-flex my-4">
+											<!-- Avatar -->
+											<div class="avatar avatar-xl me-4 flex-shrink-0">
+												<img class="avatar-img rounded-circle" src="assets/images/avatar/09.jpg"
+													alt="avatar">
+											</div>
+											<!-- Text -->
+											<div>
+												<div class="d-sm-flex mt-1 mt-md-0 align-items-center">
+													<h5 class="me-3 mb-0">Jacqueline Miller</h5>
+													<!-- Review star -->
+													<ul class="list-inline mb-0">
+														<li class="list-inline-item me-0"><i
+																class="fas fa-star text-warning"></i></li>
+														<li class="list-inline-item me-0"><i
+																class="fas fa-star text-warning"></i></li>
+														<li class="list-inline-item me-0"><i
+																class="fas fa-star text-warning"></i></li>
+														<li class="list-inline-item me-0"><i
+																class="fas fa-star text-warning"></i></li>
+														<li class="list-inline-item me-0"><i
+																class="far fa-star text-warning"></i></li>
+													</ul>
+												</div>
+												<!-- Info -->
+												<p class="small mb-2">2 days ago</p>
+												<p class="mb-2">Perceived end knowledge certainly day sweetness why
+													cordially. Ask a quick six seven offer see among. Handsome met
+													debating sir dwelling age material. As style lived he worse dried.
+													Offered related so visitors we private removed. Moderate do subjects
+													to distance. </p>
+
+												<!-- Reply button -->
+												<a href="#" class="text-body mb-0"><i
+														class="fas fa-reply me-2"></i>Reply</a>
+											</div>
+										</div>
+										<!-- Divider -->
+										<hr>
+										<!-- Review item END -->
+
+										<!-- Review item START -->
+										<div class="d-md-flex my-4">
+											<!-- Avatar -->
+											<div class="avatar avatar-xl me-4 flex-shrink-0">
+												<img class="avatar-img rounded-circle" src="assets/images/avatar/07.jpg"
+													alt="avatar">
+											</div>
+											<!-- Text -->
+											<div>
+												<div class="d-sm-flex mt-1 mt-md-0 align-items-center">
+													<h5 class="me-3 mb-0">Dennis Barrett</h5>
+													<!-- Review star -->
+													<ul class="list-inline mb-0">
+														<li class="list-inline-item me-0"><i
+																class="fas fa-star text-warning"></i></li>
+														<li class="list-inline-item me-0"><i
+																class="fas fa-star text-warning"></i></li>
+														<li class="list-inline-item me-0"><i
+																class="fas fa-star text-warning"></i></li>
+														<li class="list-inline-item me-0"><i
+																class="fas fa-star text-warning"></i></li>
+														<li class="list-inline-item me-0"><i
+																class="far fa-star text-warning"></i></li>
+													</ul>
+												</div>
+												<!-- Info -->
+												<p class="small mb-2">2 days ago</p>
+												<p class="mb-2">Handsome met debating sir dwelling age material. As
+													style lived he worse dried. Offered related so visitors we private
+													removed. Moderate do subjects to distance. </p>
+												<!-- Reply button -->
+												<a href="#" class="text-body mb-0"><i
+														class="fas fa-reply me-2"></i>Reply</a>
+											</div>
+										</div>
+										<!-- Review item END -->
+										<!-- Divider -->
+										<hr>
+									</div>
+									<!-- Student review END -->
+
+									<!-- Leave Review START -->
+									<div class="mt-2">
+										<h5 class="mb-4">Leave a Review</h5>
+										<form class="row g-3">
+											<!-- Name -->
+											<div class="col-md-6">
+												<input type="text" class="form-control" id="inputtext"
+													placeholder="Name" aria-label="First name">
+											</div>
+											<!-- Email -->
+											<div class="col-md-6">
+												<input type="email" class="form-control" placeholder="Email"
+													id="inputEmail4">
+											</div>
+											<!-- Rating -->
+											<div class="col-12">
+												<select id="inputState2" class="form-select  js-choice">
+													<option selected="">★★★★★ (5/5)</option>
+													<option>★★★★☆ (4/5)</option>
+													<option>★★★☆☆ (3/5)</option>
+													<option>★★☆☆☆ (2/5)</option>
+													<option>★☆☆☆☆ (1/5)</option>
+												</select>
+											</div>
+											<!-- Message -->
+											<div class="col-12">
+												<textarea class="form-control" id="exampleFormControlTextarea1"
+													placeholder="Your review" rows="3"></textarea>
+											</div>
+											<!-- Button -->
+											<div class="col-12">
+												<button type="submit" class="btn btn-primary mb-0">Post Review</button>
+											</div>
+										</form>
+									</div>
+									<!-- Leave Review END -->
+
+								</div>
+								<!-- Content END -->
+
+								<!-- Content START -->
+								<div class="tab-pane fade" id="course-pills-3" role="tabpanel"
+									aria-labelledby="course-pills-tab-3">
+									@Html.Raw(Model.Details)
+								</div>
+								<!-- Content END -->
+							</div>
+							<!-- Tab contents END -->
+						</div>
+						<!-- Course detail END -->
+					</div>
+				</div>
+				<!-- Main content END -->
+
+				<!-- Right sidebar START -->
+				<div class="col-lg-4">
+					<div class="row g-4">
+						<!-- Responsive offcanvas body START -->
+						<nav class="navbar navbar-light navbar-expand-lg mx-0">
+							<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasSidebar"
+								aria-labelledby="offcanvasSidebarLabel">
+								<div class="offcanvas-header bg-dark">
+									<h5 class="offcanvas-title text-white" id="offcanvasSidebarLabel">Course playlist
+									</h5>
+									<button type="button" class="btn btn-sm btn-light mb-0" data-bs-dismiss="offcanvas"
+										aria-label="Close"><i class="bi bi-x-lg"></i></button>
+								</div>
+								<div class="offcanvas-body p-3 p-lg-0">
+									<div class="col-12">
+										<!-- Accordion START -->
+										<div class="accordion accordion-icon accordion-bg-light" id="accordionExample2">
+											<!-- Item -->
+											@foreach (var chapter in Model.Chapters.OrderBy(c => c.Order))
+											{
+												<div class="accordion-item mb-3">
+
+													<h6 class="accordion-header font-base" id="heading-@chapter.ChapterId">
+														<a class="accordion-button fw-bold rounded collapsed d-block"
+															href="#collapse-@chapter.ChapterId" data-bs-toggle="collapse"
+															data-bs-target="#collapse-@chapter.ChapterId"
+															aria-expanded="false"
+															aria-controls="collapse-@chapter.ChapterId">
+															<span class="mb-0">@chapter.Name</span>
+															<span class="small d-block mt-1">(@chapter.Lessons.Count()
+																Lectures)</span>
+														</a>
+													</h6>
+													<div id="collapse-@chapter.ChapterId"
+														class="accordion-collapse collapse"
+														aria-labelledby="heading-@chapter.ChapterId"
+														data-bs-parent="#accordionExample2">
+														<div class="accordion-body mt-3">
+															<div class="vstack gap-3">
+																<div class="overflow-hidden">
+																	@* <div class="d-flex justify-content-between">
+																	<p class="mb-1 h6">1/3 Completed (tiến độ)</p>
+																	<h6 class="mb-1 text-end">30%</h6>
+																</div> *@
+																	<div
+																		class="progress progress-sm bg-primary bg-opacity-10">
+																		<div class="progress-bar bg-primary aos"
+																			role="progressbar" data-aos="slide-right"
+																			data-aos-delay="200" data-aos-duration="1000"
+																			data-aos-easing="ease-in-out" style="width: 30%"
+																			aria-valuenow="30" aria-valuemin="0"
+																			aria-valuemax="100">
+																		</div>
+																	</div>
+																</div>
+																<p>Số lượng bài học: @chapter.Lessons.Count()</p>
+																@if (chapter.Lessons.Any())
+																{
+																	@foreach (var lesson in chapter.Lessons.OrderBy(l =>
+																												l.Order))
+																	{
+																		<div
+																			class="d-flex justify-content-between align-items-center">
+																			<div
+																				class="position-relative d-flex align-items-center">
+																				<a href="javascript:void(0);"
+																					class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static"
+																					onclick="playLessonVideo('@lesson.VideoUrl')">
+																					<i class="fas fa-play me-0"></i>
+																				</a>
+																				<span
+																					class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-200px">@lesson.Name</span>
+																			</div>
+																			<div
+																				class="progress progress-sm bg-primary bg-opacity-10">
+																				<div class="progress-bar bg-primary aos"
+																					role="progressbar" data-aos="slide-right"
+																					data-aos-delay="200" data-aos-duration="1000"
+																					data-aos-easing="ease-in-out" style="width: 30%"
+																					aria-valuenow="30" aria-valuemin="0"
+																					aria-valuemax="100">
+																				</div>
+																			</div>
+																			<p class="mb-0 text-truncate">@lesson.Duration</p>
+																		</div>
+																	}
+																}
+																else
+																{
+																	<p>(Chưa có bài học nào trong chương này!)</p>
+																}
+															</div>
+														</div>
+													</div>
+												</div>
+											}
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</nav>
+						<!-- Responsive offcanvas body END -->
+						<div class="progress progress-sm bg-primary bg-opacity-10">
+							<div class="progress-bar bg-primary aos" role="progressbar" data-aos="slide-right"
+								data-aos-delay="200" data-aos-duration="1000" data-aos-easing="ease-in-out"
+								style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+							</div>
+						</div>
+						<!-- Tags START -->
+						<div class="col-12">
+							<h4 class="mb-3">Tags</h4>
+							<ul class="list-inline mb-0">
+								<li class="list-inline-item"> <a class="btn btn-outline-light btn-sm" href="#">blog</a>
+								</li>
+								<li class="list-inline-item"> <a class="btn btn-outline-light btn-sm"
+										href="#">business</a> </li>
+								<li class="list-inline-item"> <a class="btn btn-outline-light btn-sm" href="#">theme</a>
+								</li>
+								<li class="list-inline-item"> <a class="btn btn-outline-light btn-sm"
+										href="#">bootstrap</a> </li>
+								<li class="list-inline-item"> <a class="btn btn-outline-light btn-sm" href="#">data
+										science</a> </li>
+								<li class="list-inline-item"> <a class="btn btn-outline-light btn-sm" href="#">web
+										development</a> </li>
+								<li class="list-inline-item"> <a class="btn btn-outline-light btn-sm" href="#">tips</a>
+								</li>
+								<li class="list-inline-item"> <a class="btn btn-outline-light btn-sm" href="#">machine
+										learning</a> </li>
+							</ul>
+						</div>
+						<!-- Tags END -->
+					</div><!-- Row End -->
+				</div>
+				<!-- Right sidebar END -->
+
+			</div><!-- Row END -->
+		</div>
+	</section>
+	<!-- =======================
+Page content END -->
+
+</main>
+
+@section Scripts {
+	<script>
+		function playLessonVideo(videoUrl) {
+			const videoPlayer = document.getElementById('lessonVideo');
+			videoPlayer.setAttribute('src', videoUrl);
+		}
+	</script>
+}

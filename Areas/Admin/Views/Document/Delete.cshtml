@@ -1,0 +1,46 @@
+@model Document
+@{
+	ViewData["Title"] = "Delete the Document";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Do you want to delete this doc?</h2>
+    </div>
+    <div class="container shadow p-5">
+        <form asp-action="Delete" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="row g-3">
+                <div class="form-group col-12 mb-3">
+                    <label>Tên tài liệu</label>
+                    <input disabled asp-for="Name" class="form-control" />
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label>Mô tả ngắn</label>
+                    <input disabled asp-for="Description" class="form-control" />
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label>Loại tài liệu</label>
+                    <input disabled asp-for="Type" class="form-control" />
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Delete</button>
+            <a asp-area="Admin" asp-controller="Document" asp-action="Index" class="btn btn-secondary">Back</a>
+            @* <a href="javascript:history.back()" class="btn btn-secondary">Back</a> *@
+        </form>
+    </div>
+</main>
+
+@{
+    var summernote = new OnlineCourse.Areas.Admin.Models.SummerNote("#Details");
+    <partial name="_SummerNote" model="summernote" />
+}
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

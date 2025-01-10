@@ -1,0 +1,43 @@
+@model OnlineCourse.Models.CourseCategory
+@{
+    ViewData["Title"] = "Edit category";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2>Sửa danh mục khoá học</h2>
+    </div>
+    <div class="container shadow p-5">
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="Id" type="hidden" />
+            <div class="form-row">
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="Name">Tên danh mục</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="Description">Mô tả ngắn</label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label asp-for="Slug">Slug</label>
+                    <input asp-for="Slug" class="form-control" />
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label>
+                        @Html.CheckBox("Status", Model.Status)
+                        <span>Trạng thái hiển thị</span>
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Cập nhật</button>
+
+            <a asp-area="Admin" asp-controller="Category" asp-action="Index" class="btn btn-secondary">Thoát</a>
+        </form>
+    </div>
+</main>
