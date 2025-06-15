@@ -793,3 +793,5 @@ D:/Project/OnlineCourse/obj/Debug/net8.0/OnlineCourse.sourcelink.json
 /Users/huynh/dev/tuan/huynh/obj/Debug/net8.0/OnlineCourse.pdb
 /Users/huynh/dev/tuan/huynh/obj/Debug/net8.0/OnlineCourse.genruntimeconfig.cache
 /Users/huynh/dev/tuan/huynh/obj/Debug/net8.0/ref/OnlineCourse.dll
+/Users/huynh/dev/tuan/huynh/bin/Debug/net8.0/PayPalCheckoutSdk.dll
+/Users/huynh/dev/tuan/huynh/bin/Debug/net8.0/PayPalHttp-Dotnet.dll

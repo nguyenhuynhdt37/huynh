@@ -4,6 +4,7 @@ namespace OnlineCourse.Models.ViewModels
 {
     public class PaymentInformationModel
     {
+        public string PaymentId { get; set; }
         public string OrderType { get; set; }
         public double Amount { get; set; }
         public string OrderDescription { get; set; }

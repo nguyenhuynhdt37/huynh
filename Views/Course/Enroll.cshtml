@@ -8,8 +8,207 @@
 	<link rel="stylesheet" type="text/css" href="~/assets/css/enroll.css">
 }
 
+<style>
+	.firework-container {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		z-index: 9999;
+	}
+
+	.firework {
+		position: absolute;
+		width: 5px;
+		height: 5px;
+		border-radius: 50%;
+		box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.8);
+		animation: firework-animation 2s ease-out;
+		opacity: 0;
+	}
+
+
+	firework-animation {
+		0% {
+			transform: translate(var(--x), var(--y)) scale(0);
+			opacity: 1;
+			box-shadow: 0 0 0 0px rgba(255, 255, 255, 0.8);
+		}
+
+		50% {
+			opacity: 1;
+		}
+
+		100% {
+			transform: translate(var(--x), var(--y)) scale(1);
+			opacity: 0;
+			box-shadow: 0 0 0 20px rgba(255, 255, 255, 0);
+		}
+	}
+
+	.celebration-message {
+		animation: celebration 1s ease-in-out;
+		box-shadow: 0 0 15px rgba(40, 167, 69, 0.5);
+		border: 2px solid #28a745;
+	}
+
+	celebration {
+		0% {
+			transform: scale(0.8);
+		}
+
+		50% {
+			transform: scale(1.1);
+		}
+
+		100% {
+			transform: scale(1);
+		}
+	}
+</style>
+
+@section Scripts {
+	<script>
+		// Auto-close alerts after 8 seconds
+		$(document).ready(function () {
+			setTimeout(function () {
+				$("#successAlert, #errorAlert, #infoAlert").alert('close');
+			}, 8000);
+
+			// Kiểm tra nếu có thông báo thành công
+			const successMessage = $("#successAlert").text();
+			if (successMessage && successMessage.toLowerCase().includes("thành công")) {
+				createFireworks();
+				$("#successAlert").addClass("celebration-message");
+			}
+		});
+
+		// Tạo hiệu ứng pháo hoa
+		function createFireworks() {
+			const fireworkContainer = document.createElement("div");
+			fireworkContainer.className = "firework-container";
+			document.body.appendChild(fireworkContainer);
+
+			// Tạo 50 pháo hoa
+			for (let i = 0; i < 50; i++) {
+				setTimeout(() => {
+					const firework = document.createElement("div");
+					firework.className = "firework";
+
+					// Vị trí ngẫu nhiên
+					const x = Math.random() * window.innerWidth;
+					const y = Math.random() * window.innerHeight * 0.7;
+					firework.style.left = `${x}px`;
+					firework.style.top = `${y}px`;
+
+					// Màu sắc ngẫu nhiên
+					const colors = ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#ff00ff", "#00ffff"];
+					const color = colors[Math.floor(Math.random() * colors.length)];
+					firework.style.backgroundColor = color;
+					firework.style.boxShadow = `0 0 10px 5px ${color}`;
+
+					// Hướng nổ ngẫu nhiên
+					const angle = Math.random() * Math.PI * 2;
+					const distance = 50 + Math.random() * 100;
+					const xEnd = Math.cos(angle) * distance;
+					const yEnd = Math.sin(angle) * distance;
+					firework.style.setProperty('--x', `${xEnd}px`);
+					firework.style.setProperty('--y', `${yEnd}px`);
+
+					fireworkContainer.appendChild(firework);
+
+					// Xóa pháo hoa sau khi hoàn thành
+					setTimeout(() => {
+						firework.remove();
+					}, 2000);
+				}, i * 50);
+			}
+
+			// Xóa container sau 5 giây
+			setTimeout(() => {
+				fireworkContainer.remove();
+			}, 5000);
+		}
+	</script>
+}
 
 <main>
+	<!-- =======================
+Page Banner START -->
+	<section class="bg-light py-5 position-relative">
+		<div class="container">
+			<!-- Hiển thị thông báo từ TempData -->
+			@if (TempData["Message"] != null)
+			{
+				string message = TempData["Message"].ToString();
+				if (message.ToLower().Contains("thành công"))
+				{
+					<div class="alert alert-success alert-dismissible fade show mb-4" role="alert" id="successAlert">
+						<i class="bi bi-check-circle-fill me-2"></i>
+						<strong>Chúc mừng!</strong> @message
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+				}
+				else
+				{
+					<div class="alert alert-info alert-dismissible fade show mb-4" role="alert" id="infoAlert">
+						<i class="bi bi-info-circle-fill me-2"></i>
+						<strong>Thông báo:</strong> @message
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+				}
+			}
+
+			@if (TempData["Error"] != null)
+			{
+				<div class="alert alert-danger alert-dismissible fade show mb-4" role="alert" id="errorAlert">
+					<i class="bi bi-exclamation-triangle-fill me-2"></i>
+					<strong>Lỗi:</strong> @TempData["Error"]
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			}
+
+			<div class="row">
+				<div class="col-lg-8">
+					<!-- Title -->
+					<h1 class="mb-3">@Model.Course.Name</h1>
+
+					<!-- Content -->
+					<p class="mb-0">@Model.Course.Description</p>
+
+					<!-- Info -->
+					<ul class="list-inline mt-4 mb-0">
+						<li class="list-inline-item text-success me-3">
+							<i class="bi bi-calendar-date me-2"></i>@DateTime.Now.ToString("dd/MM/yyyy")
+						</li>
+						<li class="list-inline-item me-3">
+							<i class="bi bi-grid me-2"></i>@(Model.Course.Chapters != null ? Model.Course.Chapters.Count
+														: 0) Chương
+						</li>
+
+						@if (Model.Course.Chapters != null && Model.Course.Chapters.Count > 0)
+												{
+												int totalLessons = 0;
+						foreach (var chapter in Model.Course.Chapters)
+						{
+							if (chapter.Lessons != null)
+							{
+								totalLessons += chapter.Lessons.Count;
+							}
+						}
+						<li class="list-inline-item">
+							<i class="bi bi-journal-text me-2"></i>@totalLessons Bài học
+						</li>
+												}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- =======================
+Page Banner END -->
 
 	<section hidden class="pt-0">
 		<div class="container">
@@ -93,49 +292,6 @@
 
 		</div>
 	</section>
-	<!-- =======================
-Page Banner START -->
-	<section class="bg-light py-5 position-relative">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8">
-					<!-- Title -->
-					<h1 class="mb-3">@Model.Course.Name</h1>
-
-					<!-- Content -->
-					<p class="mb-0">@Model.Course.Description</p>
-
-					<!-- Info -->
-					<ul class="list-inline mt-4 mb-0">
-						<li class="list-inline-item text-success me-3">
-							<i class="bi bi-calendar-date me-2"></i>@DateTime.Now.ToString("dd/MM/yyyy")
-						</li>
-						<li class="list-inline-item me-3">
-							<i class="bi bi-grid me-2"></i>@(Model.Course.Chapters != null ? Model.Course.Chapters.Count
-														: 0) Chương
-						</li>
-
-						@if (Model.Course.Chapters != null && Model.Course.Chapters.Count > 0)
-												{
-												int totalLessons = 0;
-						foreach (var chapter in Model.Course.Chapters)
-						{
-							if (chapter.Lessons != null)
-							{
-								totalLessons += chapter.Lessons.Count;
-							}
-						}
-						<li class="list-inline-item">
-							<i class="bi bi-journal-text me-2"></i>@totalLessons Bài học
-						</li>
-												}
-					</ul>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- =======================
-Page Banner END -->
 
 	<!-- =======================
 Page content START -->
@@ -254,7 +410,7 @@ Page content START -->
 							{
 								<button class="btn btn-primary mb-2" data-bs-toggle="modal"
 									data-bs-target="#enrollPaymentModal">Đăng ký khóa học</button>
-								<p class="text-center mb-0 small">Thanh toán qua VNPay sau khi đăng ký</p>
+								<p class="text-center mb-0 small">Thanh toán qua VNPay hoặc PayPal</p>
 							}
 						</div>
 
@@ -333,19 +489,38 @@ Page content END -->
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content shadow">
 				<div class="modal-header">
-					<h5 class="modal-title" id="enrollPaymentModalLabel">Xác nhận thanh toán</h5>
+					<h5 class="modal-title" id="enrollPaymentModalLabel">Chọn phương thức thanh toán</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<p>Bạn có muốn đăng ký khóa học này? Sau khi xác nhận, bạn sẽ được chuyển hướng đến trang thanh toán
-						VNPay.</p>
+					<p>Vui lòng chọn phương thức thanh toán để đăng ký khóa học:</p>
+
+					<div class="d-grid gap-2 mt-3">
+						<!-- VNPay Payment Option -->
+						<form method="post" asp-action="ProcessEnroll" asp-controller="Payment"
+							asp-route-courseId="@Model.CourseId" asp-route-paymentMethod="VNPay">
+							@Html.AntiForgeryToken()
+							<button type="submit"
+								class="btn btn-lg btn-outline-primary w-100 d-flex align-items-center justify-content-center mb-2">
+
+								Thanh toán qua VNPay
+							</button>
+						</form>
+
+						<!-- PayPal Payment Option -->
+						<form method="post" asp-action="ProcessEnroll" asp-controller="PaymentPayPal"
+							asp-route-courseId="@Model.CourseId" asp-route-paymentMethod="PayPal">
+							@Html.AntiForgeryToken()
+							<button type="submit"
+								class="btn btn-lg btn-outline-primary w-100 d-flex align-items-center justify-content-center">
+
+								Thanh toán qua PayPal
+							</button>
+						</form>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-					<form method="post" asp-action="ProcessEnroll" asp-route-courseId="@Model.CourseId">
-						@Html.AntiForgeryToken()
-						<button type="submit" class="btn btn-primary">Đồng ý thanh toán</button>
-					</form>
 				</div>
 			</div>
 		</div>
@@ -369,5 +544,3 @@ Page content END -->
 		box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 	}
 </style>
-
-</main>

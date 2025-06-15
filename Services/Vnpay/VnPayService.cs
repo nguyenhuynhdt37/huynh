@@ -23,7 +23,7 @@ namespace ShopMVC.Services.Vnpay
             var pay = new VnPayLibrary();
             // var urlCallBack = _configuration["PaymentCallBack:ReturnUrl"];
             var urlCallBack = _configuration["Vnpay:PaymentBackReturnUrl"];
-            var urlCancel = _configuration["Vnpay:vnp_CancelUrl"];
+            // var urlCancel = _configuration["Vnpay:vnp_CancelUrl"];
 
             pay.AddRequestData("vnp_Version", _configuration["Vnpay:Version"]);
             pay.AddRequestData("vnp_Command", _configuration["Vnpay:Command"]);

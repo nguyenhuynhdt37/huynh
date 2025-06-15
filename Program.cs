@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using OnlineCourse.Areas.Admin.Repository;
 using OnlineCourse.Models;
+using OnlineCourse.Services.Paypal;
 using OnlineCourse.Services.Vnpay;
 using ShopMVC.Services.Vnpay;
 
@@ -56,7 +57,20 @@ builder.Services.AddSession(options =>
 	options.Cookie.IsEssential = true;
 });
 
-
+// 1. Môi trường sandbox/live
+builder.Services.AddScoped(sp =>
+	new PayPalCheckoutSdk.Core.SandboxEnvironment
+	(
+		builder.Configuration["PayPal:ClientId"],
+		builder.Configuration["PayPal:Secret"]
+	)
+);
+// 2. Client để gọi PayPal
+builder.Services.AddScoped(sp =>
+	new PayPalCheckoutSdk.Core.PayPalHttpClient(sp.GetRequiredService<PayPalCheckoutSdk.Core.SandboxEnvironment>())
+);
+// 3. Service riêng cho PayPal
+builder.Services.AddScoped<IPayPalService, PayPalService>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 
 builder.Services.AddSingleton<GeminiService>();

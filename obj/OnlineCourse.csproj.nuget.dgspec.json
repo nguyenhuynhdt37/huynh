@@ -71,6 +71,10 @@
               "target": "Package",
               "version": "[8.0.10, )"
             },
+            "PayPalCheckoutSdk": {
+              "target": "Package",
+              "version": "[1.0.4, )"
+            },
             "elFinder.NetCore": {
               "target": "Package",
               "version": "[1.4.1, )"

@@ -22,7 +22,8 @@ namespace OnlineCourse.Controllers
             _configuration = configuration;
             _vnPay = vnPay;
         }
-
+        [Authorize]
+        [HttpPost("ProcessEnroll")]
         public async Task<IActionResult> ProcessEnroll(int courseId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -49,14 +50,14 @@ namespace OnlineCourse.Controllers
             {
                 return NotFound();
             }
-
+            var transactionId = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds().ToString();
             // Nếu là khóa học miễn phí (PromotionPrice = 0 hoặc Price = 0 và PromotionPrice = null)
             if ((course.PromotionPrice.HasValue && course.PromotionPrice.Value == 0) ||
                 (course.Price.HasValue && course.Price.Value == 0) ||
                 (!course.Price.HasValue && !course.PromotionPrice.HasValue))
             {
                 // Tạo đăng ký mới cho khóa học miễn phí
-                var enrollment = new OnlineCourse.Models.Enrollments
+                var enrollment = new Enrollments
                 {
                     CourseId = courseId,
                     userId = userId,
@@ -71,14 +72,7 @@ namespace OnlineCourse.Controllers
             }
             else
             {
-                var paymentInformation = new PaymentInformationModel
-                {
-                    OrderType = "Thanh toán khóa học",
-                    Amount = (double)course.PromotionPrice.Value,
-                    OrderDescription = $"Thanh toán khóa học {course.Name}",
-                    Name = userId
-                };
-                var paymentUrl = _vnPay.CreatePaymentUrl(paymentInformation, HttpContext);
+
                 var order = new Order
                 {
                     UserId = userId,
@@ -87,19 +81,28 @@ namespace OnlineCourse.Controllers
                     OrderDate = DateTime.Now,
                     Status = "Pending",
                     PaymentMethod = "Vnpay",
-                    PaymentUrl = paymentUrl
+                    TransactionId = transactionId
                 };
                 _context.Orders.Add(order);
                 await _context.SaveChangesAsync();
+                var paymentInformation = new PaymentInformationModel
+                {
+                    PaymentId = transactionId,
+                    OrderType = "Thanh toán khóa học",
+                    Amount = (double)course.PromotionPrice.Value,
+                    OrderDescription = $"Thanh toán khóa học {course.Name}",
+                    Name = userId
+                };
+                var paymentUrl = _vnPay.CreatePaymentUrl(paymentInformation, HttpContext);
                 return Redirect(paymentUrl);
             }
         }
         [Authorize]
-        [Route("PaymentCallbackVnpay")]
+        [HttpGet("PaymentCallbackVnpay")]
         public async Task<IActionResult> PaymentCallbackVnpay()
         {
             var resp = _vnPay.PaymentExecute(Request.Query);
-            var order = await _context.Orders.FindAsync(resp.OrderId);
+            var order = await _context.Orders.FirstOrDefaultAsync(o => o.TransactionId == resp.PaymentId);
             if (order == null) return NotFound();
 
             if (resp.Success && resp.VnPayResponseCode == "00")
@@ -128,7 +131,7 @@ namespace OnlineCourse.Controllers
             }
         }
         [Authorize]
-        [Route("PaymentCancelVnpay")]
+        [HttpGet("PaymentCancelVnpay")]
         public async Task<IActionResult> PaymentCancelVnpay([FromQuery] long vnp_TxnRef)
         {
             var order = await _context.Orders.FindAsync(vnp_TxnRef);
