@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OnlineCourse.Models;
 
 public partial class Course
 {
+    [Key]
     public int Id { get; set; }
 
     public string? Name { get; set; }
 
     public string? Code { get; set; }
+
+    public decimal? Price { get; set; }
 
     public string? MetaTitle { get; set; }
 
@@ -18,14 +22,12 @@ public partial class Course
 
     public string? Image { get; set; }
 
-    public decimal? Price { get; set; }
-
     public decimal? PromotionPrice { get; set; }
 
     public int? Quantity { get; set; }
 
     public int? CategoryId { get; set; }
-    
+
     public CourseCategory? Category { get; set; }
 
     public string? Details { get; set; }
@@ -37,6 +39,7 @@ public partial class Course
     public bool Status { get; set; }
 
     public int? ViewCount { get; set; }
+
 
     public virtual ICollection<Exam> Exams { get; set; } = new List<Exam>();
 

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/huynh/Desktop/huynh/OnlineCourse.csproj": {}
+    "/Users/huynh/dev/tuan/huynh/OnlineCourse.csproj": {}
   },
   "projects": {
-    "/Users/huynh/Desktop/huynh/OnlineCourse.csproj": {
+    "/Users/huynh/dev/tuan/huynh/OnlineCourse.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/huynh/Desktop/huynh/OnlineCourse.csproj",
+        "projectUniqueName": "/Users/huynh/dev/tuan/huynh/OnlineCourse.csproj",
         "projectName": "OnlineCourse",
-        "projectPath": "/Users/huynh/Desktop/huynh/OnlineCourse.csproj",
+        "projectPath": "/Users/huynh/dev/tuan/huynh/OnlineCourse.csproj",
         "packagesPath": "/Users/huynh/.nuget/packages/",
-        "outputPath": "/Users/huynh/Desktop/huynh/obj/",
+        "outputPath": "/Users/huynh/dev/tuan/huynh/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/huynh/.nuget/NuGet/NuGet.Config"

@@ -1,6 +1,6 @@
 @model Course
 @{
-	ViewData["Title"] = "Create new Course";
+    ViewData["Title"] = "Create new Course";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -24,7 +24,8 @@
                 </div>
                 <div class="col-md-4 mb-3">
                     <label class="form-label">Slug</label>
-                    <input asp-for="MetaTitle" required class="form-control" placeholder="Tiêu đề khoá học..." type="text">
+                    <input asp-for="MetaTitle" required class="form-control" placeholder="Tiêu đề khoá học..."
+                        type="text">
                     <span asp-validation-for="MetaTitle" class="alert-danger"></span>
                 </div>
                 <div class="col-md-4 mb-3">
@@ -36,7 +37,8 @@
                 </div>
                 <div class="col-12 mb-3">
                     <label class="form-label">Mô tả</label>
-                    <textarea asp-for="Description" required class="form-control" placeholder="Mô tả..." rows="3"></textarea>
+                    <textarea asp-for="Description" required class="form-control" placeholder="Mô tả..."
+                        rows="3"></textarea>
                     <span asp-validation-for="Description" class="alert-danger"></span>
                 </div>
                 <div class="col-md-6 mb-3">
@@ -49,12 +51,27 @@
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Hình ảnh</label>
                     <input asp-for="Image" type="text" id="file_input" class="form-control" placeholder="Chọn ảnh" />
-                    <button onclick="openDialog()" type="button" id="chooseImageBtn" class="btn btn-primary btn-sm mt-2">Chọn ảnh</button>
+                    <button onclick="openDialog()" type="button" id="chooseImageBtn"
+                        class="btn btn-primary btn-sm mt-2">Chọn ảnh</button>
                     <img id="previewImage" src="" alt="Preview Image" style="display:none;" />
                 </div>
                 <div class="col-12 mb-3">
                     <label class="form-label">Nội dung khoá học</label>
-                    <textarea asp-for="Details" required class="form-control" placeholder="Nội dung khoá học..." rows="3"></textarea>
+                    <textarea asp-for="Details" required class="form-control" placeholder="Nội dung khoá học..."
+                        rows="3"></textarea>
+                </div>
+            </div>
+            <div class="row g-2">
+                <div class="col-12 mb-3">
+                    <label class="form-label">Price</label>
+                    <input asp-for="Price" required class="form-control" placeholder="Giá khóa học" type="number">
+                    <span asp-validation-for="Price" class="alert-danger"></span>
+                </div>
+                <div class="col-12 mb-3">
+                    <label class="form-label">PromotionPrice</label>
+                    <input asp-for="PromotionPrice" required class="form-control" placeholder="Giá khuyến mãi"
+                        type="number">
+                    <span asp-validation-for="PromotionPrice" class="alert-danger"></span>
                 </div>
             </div>
 
@@ -71,7 +88,7 @@
 }
 
 @section Scripts {
-	@{
-		await Html.RenderPartialAsync("_ValidationScriptsPartial");
-	}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

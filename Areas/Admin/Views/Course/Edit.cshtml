@@ -1,6 +1,6 @@
 @model Course
 @{
-	ViewData["Title"] = "Edit the Course";
+    ViewData["Title"] = "Edit the Course";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -39,13 +39,14 @@
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Thể loại</label>
                     <select asp-for="CategoryId" asp-items="ViewBag.CategoryId" class="form-control" id="CategoryId">
-                    
+
                     </select>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Hình ảnh</label>
                     <input asp-for="Image" id="file_input" class="form-control" />
-                    <button onclick="openDialog()" type="button" id="chooseImageBtn" class="btn btn-primary btn-sm mt-2">Thay hình ảnh khác</button>
+                    <button onclick="openDialog()" type="button" id="chooseImageBtn"
+                        class="btn btn-primary btn-sm mt-2">Thay hình ảnh khác</button>
                     <img id="previewImage" src="" alt="Preview Image" style="display:none;" />
                 </div>
                 <div class="col-12 mb-3">
@@ -53,7 +54,20 @@
                     <textarea asp-for="Details" class="form-control" rows="3"></textarea>
                 </div>
             </div>
-
+            <div class="row g-2">
+                <div class="col-12 mb-3">
+                    <label class="form-label">Price</label>
+                    <input asp-for="Price" value="@Model.Price" required class="form-control" placeholder="Giá khóa học"
+                        type="number">
+                    <span asp-validation-for="Price" class="alert-danger"></span>
+                </div>
+                <div class="col-12 mb-3">
+                    <label class="form-label">PromotionPrice</label>
+                    <input asp-for="PromotionPrice" value="@Model.PromotionPrice" required class="form-control"
+                        placeholder="Giá khuyến mãi" type="number">
+                    <span asp-validation-for="PromotionPrice" class="alert-danger"></span>
+                </div>
+            </div>
             <button type="submit" class="btn btn-primary">Update</button>
             <a asp-area="Admin" asp-controller="Course" asp-action="Index" class="btn btn-secondary">Back</a>
             @* <a href="javascript:history.back()" class="btn btn-secondary">Back</a> *@
@@ -67,7 +81,7 @@
 }
 
 @section Scripts {
-	@{
-		await Html.RenderPartialAsync("_ValidationScriptsPartial");
-	}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

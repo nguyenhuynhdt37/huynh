@@ -25,7 +25,7 @@
                                             <th class="col-2">Thể loại</th>
                                             <th class="col-1">Trạng thái</th>
                                             <th class="col-1">Số chương</th>
-                                            <th class="col-1">Số bài học</th>
+                                            <th class="col-1">Giá</th>
                                             <th class="col-1">Thêm chương</th>
                                             <th class="col-1">Action</th>
                                         </tr>
@@ -59,7 +59,7 @@
                                                 <td class="text-left" scope="row">@item.Chapters.Count() <hr>
                                                     <a asp-controller="Chapter" asp-route-courseId="@item.Id">Xem chương</a>
                                                 </td>
-                                                <td class="text-left" scope="row">@item.Lessons.Count()
+                                                <td class="text-left" scope="row">@item.PromotionPrice VND
                                                     @* <a asp-controller="Lesson" asp-route-courseId="@item.Id">Xem bài học</a> *@
                                                 </td>
 

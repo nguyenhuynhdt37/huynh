@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using huynh.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -40,8 +41,10 @@ public partial class DataContext : IdentityDbContext<AppUserModel>
     public virtual DbSet<Wishlist> Wishlists { get; set; }
 
     public virtual DbSet<Chapter> Chapters { get; set; }
+    public virtual DbSet<Order> Orders { get; set; }
 
     public virtual DbSet<Blog> Blogs { get; set; }
+    public virtual DbSet<Enrollments> Enrollments { get; set; }
 
     public virtual DbSet<BlogCategory> BlogCategories { get; set; }
 

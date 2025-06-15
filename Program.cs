@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using OnlineCourse.Areas.Admin.Repository;
 using OnlineCourse.Models;
+using OnlineCourse.Services.Vnpay;
+using ShopMVC.Services.Vnpay;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,7 @@ builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(conne
 builder.Services.AddIdentity<AppUserModel, IdentityRole>()
 	.AddEntityFrameworkStores<DataContext>()
 	.AddDefaultTokenProviders();
+builder.Services.AddScoped<IVnPayService, VnPayService>();
 
 builder.Services.Configure<IdentityOptions>(options =>
 {

@@ -217,6 +217,9 @@ namespace OnlineCourse.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -254,6 +257,9 @@ namespace OnlineCourse.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -275,6 +281,102 @@ namespace OnlineCourse.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("OnlineCourse.Models.Blog", b =>
+                {
+                    b.Property<int>("BlogId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("BlogId");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BlogId"));
+
+                    b.Property<string>("Author")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<int>("BlogCategoryId")
+                        .HasColumnType("int")
+                        .HasColumnName("BlogCategoryId");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("ntext");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Image")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.HasKey("BlogId");
+
+                    b.HasIndex("BlogCategoryId");
+
+                    b.ToTable("Blogs");
+                });
+
+            modelBuilder.Entity("OnlineCourse.Models.BlogCategory", b =>
+                {
+                    b.Property<int>("BlogCategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("BlogCategoryId");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BlogCategoryId"));
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("Slug")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("BlogCategoryId");
+
+                    b.ToTable("BlogCategories");
+                });
+
+            modelBuilder.Entity("OnlineCourse.Models.Chapter", b =>
+                {
+                    b.Property<int>("ChapterId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("ChapterId");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ChapterId"));
+
+                    b.Property<int?>("CourseId")
+                        .HasColumnType("int")
+                        .HasColumnName("CourseId");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<int?>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("ChapterId");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("Chapters");
                 });
 
             modelBuilder.Entity("OnlineCourse.Models.Course", b =>
@@ -318,33 +420,10 @@ namespace OnlineCourse.Migrations
                     b.Property<string>("LinkVideo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ListFile")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ListType")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<string>("MetaDescriptions")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<string>("MetaKeywords")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
                     b.Property<string>("MetaTitle")
                         .HasMaxLength(250)
                         .IsUnicode(false)
                         .HasColumnType("varchar(250)");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime");
 
                     b.Property<string>("Name")
                         .HasMaxLength(250)
@@ -359,13 +438,15 @@ namespace OnlineCourse.Migrations
                     b.Property<int?>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("Status")
+                    b.Property<bool>("Status")
                         .HasColumnType("bit");
 
                     b.Property<int?>("ViewCount")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Courses");
                 });
@@ -379,30 +460,15 @@ namespace OnlineCourse.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ActionName")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("ControllerName")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int?>("DisplayOrder")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Levels")
-                        .HasColumnType("int");
+                    b.Property<string>("Description")
+                        .HasColumnType("ntext");
 
                     b.Property<string>("Name")
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<int?>("ParentId")
-                        .HasColumnType("int")
-                        .HasColumnName("ParentID");
-
-                    b.Property<bool?>("ShowOnHome")
-                        .HasColumnType("bit");
+                    b.Property<string>("Slug")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool?>("Status")
                         .HasColumnType("bit");
@@ -410,6 +476,53 @@ namespace OnlineCourse.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CourseCategories");
+                });
+
+            modelBuilder.Entity("OnlineCourse.Models.Document", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("DownloadCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Link")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ViewCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("Documents");
                 });
 
             modelBuilder.Entity("OnlineCourse.Models.Exam", b =>
@@ -490,6 +603,86 @@ namespace OnlineCourse.Migrations
                     b.ToTable("Exams");
                 });
 
+            modelBuilder.Entity("OnlineCourse.Models.Lesson", b =>
+                {
+                    b.Property<int>("LessonId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("LessonId");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LessonId"));
+
+                    b.Property<int?>("ChapterId")
+                        .HasColumnType("int")
+                        .HasColumnName("ChapterId");
+
+                    b.Property<string>("ContentType")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<int?>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Details")
+                        .HasColumnType("ntext");
+
+                    b.Property<string>("Duration")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FilePath")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("VideoUrl")
+                        .HasColumnType("ntext");
+
+                    b.HasKey("LessonId");
+
+                    b.HasIndex("ChapterId");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("Lessons");
+                });
+
+            modelBuilder.Entity("OnlineCourse.Models.Progresses", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("IsCompleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("LessonId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LessonId");
+
+                    b.ToTable("Progresses");
+                });
+
             modelBuilder.Entity("OnlineCourse.Models.Question", b =>
                 {
                     b.Property<int>("Id")
@@ -527,6 +720,41 @@ namespace OnlineCourse.Migrations
                     b.ToTable("Questions");
                 });
 
+            modelBuilder.Entity("OnlineCourse.Models.Rating", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Rate")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Ratings");
+                });
+
             modelBuilder.Entity("OnlineCourse.Models.Result", b =>
                 {
                     b.Property<int>("UserId")
@@ -547,6 +775,9 @@ namespace OnlineCourse.Migrations
 
                     b.Property<string>("ResultEssay")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ResultId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ResultQuiz")
                         .HasMaxLength(250)
@@ -575,11 +806,65 @@ namespace OnlineCourse.Migrations
                     b.Property<bool?>("Status")
                         .HasColumnType("bit");
 
+                    b.Property<string>("UserId1")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("UserId", "ExamId");
 
                     b.HasIndex("ExamId");
 
+                    b.HasIndex("UserId1");
+
                     b.ToTable("Results");
+                });
+
+            modelBuilder.Entity("OnlineCourse.Models.Wishlist", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Wishlists");
+                });
+
+            modelBuilder.Entity("huynh.Models.Enrollments", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("EnrollmentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("userId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("userId");
+
+                    b.ToTable("Enrollments");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -633,6 +918,52 @@ namespace OnlineCourse.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("OnlineCourse.Models.Blog", b =>
+                {
+                    b.HasOne("OnlineCourse.Models.BlogCategory", "BlogCategory")
+                        .WithMany("Blogs")
+                        .HasForeignKey("BlogCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_Blogs_BlogCategories");
+
+                    b.Navigation("BlogCategory");
+                });
+
+            modelBuilder.Entity("OnlineCourse.Models.Chapter", b =>
+                {
+                    b.HasOne("OnlineCourse.Models.Course", "Course")
+                        .WithMany("Chapters")
+                        .HasForeignKey("CourseId")
+                        .HasConstraintName("FK_Chapters_Courses");
+
+                    b.Navigation("Course");
+                });
+
+            modelBuilder.Entity("OnlineCourse.Models.Course", b =>
+                {
+                    b.HasOne("OnlineCourse.Models.CourseCategory", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId");
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("OnlineCourse.Models.Document", b =>
+                {
+                    b.HasOne("OnlineCourse.Models.CourseCategory", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId");
+
+                    b.HasOne("OnlineCourse.Models.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId");
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Course");
+                });
+
             modelBuilder.Entity("OnlineCourse.Models.Exam", b =>
                 {
                     b.HasOne("OnlineCourse.Models.Course", "Course")
@@ -641,6 +972,31 @@ namespace OnlineCourse.Migrations
                         .HasConstraintName("FK_Exams_Courses");
 
                     b.Navigation("Course");
+                });
+
+            modelBuilder.Entity("OnlineCourse.Models.Lesson", b =>
+                {
+                    b.HasOne("OnlineCourse.Models.Chapter", "Chapter")
+                        .WithMany("Lessons")
+                        .HasForeignKey("ChapterId")
+                        .HasConstraintName("FK_Lessons_Courses");
+
+                    b.HasOne("OnlineCourse.Models.Course", "Course")
+                        .WithMany("Lessons")
+                        .HasForeignKey("CourseId");
+
+                    b.Navigation("Chapter");
+
+                    b.Navigation("Course");
+                });
+
+            modelBuilder.Entity("OnlineCourse.Models.Progresses", b =>
+                {
+                    b.HasOne("OnlineCourse.Models.Lesson", "Lesson")
+                        .WithMany("Progresses")
+                        .HasForeignKey("LessonId");
+
+                    b.Navigation("Lesson");
                 });
 
             modelBuilder.Entity("OnlineCourse.Models.Question", b =>
@@ -653,6 +1009,23 @@ namespace OnlineCourse.Migrations
                     b.Navigation("Course");
                 });
 
+            modelBuilder.Entity("OnlineCourse.Models.Rating", b =>
+                {
+                    b.HasOne("OnlineCourse.Models.Course", "Course")
+                        .WithMany("Ratings")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OnlineCourse.Models.AppUserModel", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Course");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("OnlineCourse.Models.Result", b =>
                 {
                     b.HasOne("OnlineCourse.Models.Exam", "Exam")
@@ -661,19 +1034,80 @@ namespace OnlineCourse.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_Results_Exams");
 
+                    b.HasOne("OnlineCourse.Models.AppUserModel", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1");
+
                     b.Navigation("Exam");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("OnlineCourse.Models.Wishlist", b =>
+                {
+                    b.HasOne("OnlineCourse.Models.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OnlineCourse.Models.AppUserModel", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Course");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("huynh.Models.Enrollments", b =>
+                {
+                    b.HasOne("OnlineCourse.Models.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OnlineCourse.Models.AppUserModel", "User")
+                        .WithMany()
+                        .HasForeignKey("userId");
+
+                    b.Navigation("Course");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("OnlineCourse.Models.BlogCategory", b =>
+                {
+                    b.Navigation("Blogs");
+                });
+
+            modelBuilder.Entity("OnlineCourse.Models.Chapter", b =>
+                {
+                    b.Navigation("Lessons");
                 });
 
             modelBuilder.Entity("OnlineCourse.Models.Course", b =>
                 {
+                    b.Navigation("Chapters");
+
                     b.Navigation("Exams");
 
+                    b.Navigation("Lessons");
+
                     b.Navigation("Questions");
+
+                    b.Navigation("Ratings");
                 });
 
             modelBuilder.Entity("OnlineCourse.Models.Exam", b =>
                 {
                     b.Navigation("Results");
+                });
+
+            modelBuilder.Entity("OnlineCourse.Models.Lesson", b =>
+                {
+                    b.Navigation("Progresses");
                 });
 #pragma warning restore 612, 618
         }

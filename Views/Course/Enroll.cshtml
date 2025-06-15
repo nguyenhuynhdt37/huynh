@@ -1,0 +1,373 @@
+@model OnlineCourse.Models.ViewModels.CourseEnrollViewModel
+@{
+	ViewData["Title"] = "Đăng ký khóa học";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Childcss {
+	<link rel="stylesheet" type="text/css" href="~/assets/css/enroll.css">
+}
+
+
+<main>
+
+	<section hidden class="pt-0">
+		<div class="container">
+
+			<!-- Filter bar START -->
+			<form class="d-none bg-light border p-4 rounded-3 my-4 z-index-9 position-relative">
+				<div class="row g-3">
+					<!-- Input -->
+					<div class="col-xl-3">
+						<input class="form-control me-1" type="search" placeholder="Enter keyword">
+					</div>
+
+					<!-- Select item -->
+					<div class="col-xl-8">
+						<div class="row g-3">
+							<!-- Select items -->
+							<div class="col-sm-6 col-md-3 pb-2 pb-md-0">
+								<select class="form-select form-select-sm js-choice"
+									aria-label=".form-select-sm example">
+									<option value="">Categories</option>
+									<option>All</option>
+									<option>Development</option>
+									<option>Design</option>
+									<option>Accounting</option>
+									<option>Translation</option>
+									<option>Finance</option>
+									<option>Legal</option>
+									<option>Photography</option>
+									<option>Writing</option>
+									<option>Marketing</option>
+								</select>
+							</div>
+
+							<!-- Search item -->
+							<div class="col-sm-6 col-md-3 pb-2 pb-md-0">
+								<select class="form-select form-select-sm js-choice"
+									aria-label=".form-select-sm example">
+									<option value="">Price level</option>
+									<option>All</option>
+									<option>Free</option>
+									<option>Paid</option>
+								</select>
+							</div>
+
+							<!-- Search item -->
+							<div class="col-sm-6 col-md-3 pb-2 pb-md-0">
+								<select class="form-select form-select-sm js-choice"
+									aria-label=".form-select-sm example">
+									<option value="">Skill level</option>
+									<option>All levels</option>
+									<option>Beginner</option>
+									<option>Intermediate</option>
+									<option>Advanced</option>
+								</select>
+							</div>
+
+							<!-- Search item -->
+							<div class="col-sm-6 col-md-3 pb-2 pb-md-0">
+								<select class="form-select form-select-sm js-choice"
+									aria-label=".form-select-sm example">
+									<option value="">Language</option>
+									<option>English</option>
+									<option>Francas</option>
+									<option>Russian</option>
+									<option>Hindi</option>
+									<option>Bengali</option>
+									<option>Spanish</option>
+								</select>
+							</div>
+						</div> <!-- Row END -->
+					</div>
+					<!-- Button -->
+					<div class="col-xl-1">
+						<button type="button" class="btn btn-primary mb-0 rounded z-index-1 w-100"><i
+								class="fas fa-search"></i></button>
+					</div>
+				</div> <!-- Row END -->
+			</form>
+			<!-- Filter bar END -->
+
+
+		</div>
+	</section>
+	<!-- =======================
+Page Banner START -->
+	<section class="bg-light py-5 position-relative">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8">
+					<!-- Title -->
+					<h1 class="mb-3">@Model.Course.Name</h1>
+
+					<!-- Content -->
+					<p class="mb-0">@Model.Course.Description</p>
+
+					<!-- Info -->
+					<ul class="list-inline mt-4 mb-0">
+						<li class="list-inline-item text-success me-3">
+							<i class="bi bi-calendar-date me-2"></i>@DateTime.Now.ToString("dd/MM/yyyy")
+						</li>
+						<li class="list-inline-item me-3">
+							<i class="bi bi-grid me-2"></i>@(Model.Course.Chapters != null ? Model.Course.Chapters.Count
+														: 0) Chương
+						</li>
+
+						@if (Model.Course.Chapters != null && Model.Course.Chapters.Count > 0)
+												{
+												int totalLessons = 0;
+						foreach (var chapter in Model.Course.Chapters)
+						{
+							if (chapter.Lessons != null)
+							{
+								totalLessons += chapter.Lessons.Count;
+							}
+						}
+						<li class="list-inline-item">
+							<i class="bi bi-journal-text me-2"></i>@totalLessons Bài học
+						</li>
+												}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- =======================
+Page Banner END -->
+
+	<!-- =======================
+Page content START -->
+	<section class="pt-5 pb-5">
+		<div class="container">
+			<div class="row g-lg-5">
+				<!-- Main content START -->
+				<div class="col-lg-8">
+					<div class="card shadow p-2 mb-4 video-container">
+						<!-- Course video START -->
+						<div class="card-body p-0 position-relative">
+							<div class="ratio ratio-16x9">
+								@if (Model.FirstLesson != null && !string.IsNullOrEmpty(Model.FirstLesson.VideoUrl))
+								{
+									<iframe src="@Model.FirstLesson.VideoUrl" class="rounded"
+										title="@Model.FirstLesson.Name" allowfullscreen></iframe>
+								}
+								else if (Model.FirstLesson != null && !string.IsNullOrEmpty(Model.FirstLesson.FilePath))
+								{
+									<!-- Display file -->
+									<div class="d-flex align-items-center justify-content-center bg-light rounded p-3">
+										<div class="text-center">
+											<i class="bi bi-file-earmark-text fs-1 text-primary mb-2"></i>
+											<p>Bài học có tệp đính kèm</p>
+											<p class="mb-0">Đăng ký khóa học để xem nội dung</p>
+										</div>
+									</div>
+								}
+								else
+								{
+									<!-- Default image if no video -->
+									<div class="d-flex align-items-center justify-content-center bg-light rounded p-3">
+										<div class="text-center">
+											<i class="bi bi-camera-video-off fs-1 text-danger mb-2"></i>
+											<h5>Bản xem thử chưa sẵn sàng</h5>
+											<p class="mb-0">Đăng ký khóa học để xem đầy đủ nội dung</p>
+										</div>
+									</div>
+								}
+							</div>
+						</div>
+						<!-- Course video END -->
+
+						@if (Model.FirstLesson != null)
+						{
+							<!-- Course info START -->
+							<div class="card-body pb-0">
+								<h5 class="mb-3">@Model.FirstLesson.Name</h5>
+								<p class="mb-0">@Model.FirstLesson.Details</p>
+							</div>
+							<!-- Course info END -->
+						}
+					</div>
+
+					<!-- Course tabs START -->
+					<div class="card shadow mb-4">
+						<!-- Card header -->
+						<div class="card-header border-bottom">
+							<h4 class="card-header-title course-info">Thông tin khóa học</h4>
+						</div>
+
+						<!-- Card body -->
+						<div class="card-body bg-light-subtle">
+							<div class="tab-content">
+								<!-- Thông tin chi tiết -->
+								<div class="course-info">
+									@Html.Raw(Model.Course.Details)
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Course tabs END -->
+				</div>
+				<!-- Main content END -->
+
+				<!-- Right sidebar START -->
+				<div class="col-lg-4">
+					<!-- Course info START -->
+					<div class="card card-body shadow p-4 mb-4">
+						<!-- Price and share button -->
+						<div class="d-flex justify-content-between align-items-center mb-3">
+							<div>
+								@if (Model.Course.PromotionPrice != null && Model.Course.PromotionPrice > 0)
+								{
+									<h3 class="fw-bold mb-0 me-2 price-tag text-primary">
+										@(Model.Course.PromotionPrice != null ?
+																			((decimal)Model.Course.PromotionPrice).ToString("N0") : "0")
+									<span class="text-muted small">VND</span>
+								</h3>
+								<span class="text-decoration-line-through mb-0 me-2">
+									@(Model.Course.Price != null ? ((decimal)Model.Course.Price).ToString("N0") : "0")
+									VND
+								</span>
+																}
+								else
+								{
+									<h3 class="fw-bold mb-0 price-tag text-primary">
+										@(Model.Course.Price != null ? ((decimal)Model.Course.Price).ToString("N0") : "0")
+										<span class="text-muted small">VND</span>
+									</h3>
+								}
+							</div>
+							<a href="#" class="text-primary-hover"><i class="bi bi-share me-2"></i></a>
+						</div>
+
+						<!-- Buttons -->
+						<div class="d-grid">
+							@if ((Model.Course.PromotionPrice != null && Model.Course.PromotionPrice == 0) ||
+														(Model.Course.Price != null && Model.Course.Price == 0) ||
+														(Model.Course.Price == null && Model.Course.PromotionPrice == null))
+							{
+								<button class="btn btn-primary mb-2" data-bs-toggle="modal"
+									data-bs-target="#enrollFreeModal">Đăng ký miễn phí</button>
+							}
+							else
+							{
+								<button class="btn btn-primary mb-2" data-bs-toggle="modal"
+									data-bs-target="#enrollPaymentModal">Đăng ký khóa học</button>
+								<p class="text-center mb-0 small">Thanh toán qua VNPay sau khi đăng ký</p>
+							}
+						</div>
+
+						<!-- Divider -->
+						<hr>
+
+						<!-- Title -->
+						<h5 class="mb-3">Khóa học này bao gồm</h5>
+						<!-- Info item -->
+						<ul class="list-group list-group-borderless">
+							<li class="list-group-item d-flex justify-content-between align-items-center">
+								<span class="h6 fw-light mb-0"><i class="bi bi-calendar-date text-primary me-2"></i>Thời
+									gian truy cập</span>
+								<span>Trọn đời</span>
+							</li>
+
+							@if (Model.Course.Chapters != null && Model.Course.Chapters.Count > 0)
+							{
+								int totalLessons = 0;
+								foreach (var chapter in Model.Course.Chapters)
+								{
+									if (chapter.Lessons != null)
+									{
+										totalLessons += chapter.Lessons.Count;
+									}
+								}
+								<li class="list-group-item d-flex justify-content-between align-items-center">
+									<span class="h6 fw-light mb-0"><i class="bi bi-journal-text text-primary me-2"></i>Bài
+										học</span>
+									<span>@totalLessons</span>
+								</li>
+							}
+
+							<li class="list-group-item d-flex justify-content-between align-items-center">
+								<span class="h6 fw-light mb-0"><i class="bi bi-globe text-primary me-2"></i>Ngôn
+									ngữ</span>
+								<span>Tiếng Việt</span>
+							</li>
+						</ul>
+					</div>
+					<!-- Course info END -->
+				</div>
+				<!-- Right sidebar END -->
+			</div>
+		</div>
+	</section>
+	<!-- =======================
+Page content END -->
+
+	<!-- Modal Free Enrollment -->
+	<div class="modal fade" id="enrollFreeModal" tabindex="-1" aria-labelledby="enrollFreeModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content shadow">
+				<div class="modal-header">
+					<h5 class="modal-title" id="enrollFreeModalLabel">Xác nhận đăng ký</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p>Bạn có muốn đăng ký khóa học miễn phí này?</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+					<form method="post" asp-action="ProcessEnroll" asp-route-courseId="@Model.CourseId">
+						@Html.AntiForgeryToken()
+						<button type="submit" class="btn btn-primary">Xác nhận đăng ký</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal Payment -->
+	<div class="modal fade" id="enrollPaymentModal" tabindex="-1" aria-labelledby="enrollPaymentModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content shadow">
+				<div class="modal-header">
+					<h5 class="modal-title" id="enrollPaymentModalLabel">Xác nhận thanh toán</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p>Bạn có muốn đăng ký khóa học này? Sau khi xác nhận, bạn sẽ được chuyển hướng đến trang thanh toán
+						VNPay.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+					<form method="post" asp-action="ProcessEnroll" asp-route-courseId="@Model.CourseId">
+						@Html.AntiForgeryToken()
+						<button type="submit" class="btn btn-primary">Đồng ý thanh toán</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+
+<style>
+	/* Ensure modals display properly */
+	.modal {
+		z-index: 1060 !important;
+	}
+
+	.modal-backdrop {
+		z-index: 1050 !important;
+		opacity: 0.5 !important;
+		background-color: #000 !important;
+	}
+
+	.modal-content {
+		border: none;
+		box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+	}
+</style>
+
+</main>
