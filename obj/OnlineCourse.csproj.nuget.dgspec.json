@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\huynh\\Desktop\\OnlineCourse\\OnlineCourse.csproj": {}
+    "/Users/huynh/Desktop/huynh/OnlineCourse.csproj": {}
   },
   "projects": {
-    "C:\\Users\\huynh\\Desktop\\OnlineCourse\\OnlineCourse.csproj": {
+    "/Users/huynh/Desktop/huynh/OnlineCourse.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\huynh\\Desktop\\OnlineCourse\\OnlineCourse.csproj",
+        "projectUniqueName": "/Users/huynh/Desktop/huynh/OnlineCourse.csproj",
         "projectName": "OnlineCourse",
-        "projectPath": "C:\\Users\\huynh\\Desktop\\OnlineCourse\\OnlineCourse.csproj",
-        "packagesPath": "C:\\Users\\huynh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\huynh\\Desktop\\OnlineCourse\\obj\\",
+        "projectPath": "/Users/huynh/Desktop/huynh/OnlineCourse.csproj",
+        "packagesPath": "/Users/huynh/.nuget/packages/",
+        "outputPath": "/Users/huynh/Desktop/huynh/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\huynh\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/huynh/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -37,8 +37,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -96,7 +95,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.411/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

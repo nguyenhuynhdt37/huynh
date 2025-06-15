@@ -11,8 +11,8 @@ var connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(connection));
 
 builder.Services.AddIdentity<AppUserModel, IdentityRole>()
-    .AddEntityFrameworkStores<DataContext>()
-    .AddDefaultTokenProviders();
+	.AddEntityFrameworkStores<DataContext>()
+	.AddDefaultTokenProviders();
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -31,7 +31,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 	// User settings.
 	options.User.AllowedUserNameCharacters =
-	"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";	
+	"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
 	options.User.RequireUniqueEmail = true;
 });
 
@@ -39,12 +39,12 @@ builder.Services.Configure<IdentityOptions>(options =>
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
-    {
-        options.LoginPath = "/Account/Login"; 
-        options.LogoutPath = "/Account/Logout"; 
-        options.AccessDeniedPath = "/Account/AccessDenied";
-    });
+	.AddCookie(options =>
+	{
+		options.LoginPath = "/Account/Login";
+		options.LogoutPath = "/Account/Logout";
+		options.AccessDeniedPath = "/Account/AccessDenied";
+	});
 
 builder.Services.AddSession(options =>
 {
@@ -56,6 +56,7 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 
+builder.Services.AddSingleton<GeminiService>();
 
 var app = builder.Build();
 
@@ -88,8 +89,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-    name: "areas",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+	name: "areas",
+	pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
 	name: "default",

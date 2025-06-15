@@ -19750,7 +19750,7 @@ small,
 .back-top {
   cursor: pointer;
   position: fixed !important;
-  bottom: 40px;
+  bottom: 90px;
   left: 40px;
   display: block;
   z-index: 99;
